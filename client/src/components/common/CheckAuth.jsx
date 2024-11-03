@@ -1,7 +1,6 @@
-/* eslint-disable no-unreachable */
-/* eslint-disable no-unused-vars */
+
 /* eslint-disable react/prop-types */
-import { Navigate, useLocation } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom";
 
 const CheckAuth = ({isAuthenticated, user, children}) => {
     const location = useLocation()
@@ -67,7 +66,7 @@ const CheckAuth = ({isAuthenticated, user, children}) => {
         return <Navigate to="/admin/dashboard" />;
     }
 
-    return <>{children}</>;
+    return {children};
 
 }
 

@@ -15,8 +15,7 @@ const Navbar = () => {
         </ul>
         <div className='nav__logo'>
             <Link to="/">
-                <image src={logo} alt="logo" className='w-full h-[70px]'/>
-                HD
+                <img src={logo} alt="logo" className='w-full h-[40px]'/>
             </Link>
         </div>
         <div className="nav__icons relative">

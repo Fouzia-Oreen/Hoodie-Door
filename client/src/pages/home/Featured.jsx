@@ -15,11 +15,11 @@ export default function Featured() {
         {
             featuredCards.map((card) => (
                 <div key={card.id} className='hero__card'>
-                    <div className='h-[200px]'>
+                    <div className='h-full object-cover'>
                     <img src={card.image} alt="card-image" className=''/>
                     </div>
 
-                    <div className='hero__content'>
+                    <div className='hero__content lg:pr-10 '>
                         <p>{card.trend}</p>
                         <h4>{card.title}</h4>
                         <a href="#">Discover More</a>

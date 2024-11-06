@@ -16,7 +16,7 @@ export default function Banner() {
                     <img src={home_1} alt="banner"/>
                 </div>
                 <div className='absolute -mt-20 ml-8 '>
-                <button className='btn__banner'>
+                <button className='btn'>
                     <Link to="/shop" className='flex gap-3'>
                       Explore Now <MoveRight/>
                     </Link>

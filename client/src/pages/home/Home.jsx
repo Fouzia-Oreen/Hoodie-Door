@@ -1,14 +1,20 @@
 
+import TrendingProducts from '../shop/TrendingProducts'
 import Banner from './Banner'
-import Catagory from './Catagory'
+import Category from './Category'
+import Deals from './Deals'
 import Featured from './Featured'
+import PromoBanner from './PromoBanner'
 
 const Home = () => {
   return (
     <>
      <Banner /> 
-     <Catagory />
+     <Category />
      <Featured />
+     <TrendingProducts />
+     <Deals />
+     <PromoBanner />
     </>
   )
 }

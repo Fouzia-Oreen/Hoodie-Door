@@ -1,16 +1,12 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.jsx'
-//import { Toaster } from "./components/ui/toaster.js"
+import { RouterProvider } from 'react-router-dom'
 import './index.css'
-import store from './store/store.js'
+import router from './routers/Router.jsx';
+import 'remixicon/fonts/remixicon.css'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-      {/* <Toaster /> */}
-    </Provider>
-  </BrowserRouter>
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
 )

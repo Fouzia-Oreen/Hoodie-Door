@@ -44,7 +44,7 @@ const ShopFilter = ({ filters, filterState, setFilterState, clearFilters}) => {
             ))
         }
       </div>
-        {/* cprice-range */}
+        {/* price-range */}
         <div className='flex flex-col space-y-2'>
         <h4 className="font-medium text-lg">Price Range</h4>
         <hr/>
@@ -65,7 +65,10 @@ const ShopFilter = ({ filters, filterState, setFilterState, clearFilters}) => {
         }
         </div>
         {/* clear filter */}
-        <button className="bg-accent px-2 py-1 text-primary border-[1px] border-dark"> Clear All Filter</button>
+        <button 
+        className="bg-accent px-2 py-1 text-primary border-[1px] border-dark"
+        onClick={clearFilters}
+        > Clear All Filter</button>
     </div>
   )
 }

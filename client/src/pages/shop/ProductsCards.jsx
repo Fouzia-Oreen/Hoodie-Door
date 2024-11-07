@@ -2,9 +2,14 @@
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import RatingStars from "../../components/RatingStars";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/features/cart/CartSlice.js";
 
 const ProductsCards = ({products}) => {
-   console.log(products);
+   const dispatch = useDispatch();
+   const handleAddToCart = (product) => {
+    dispatch(addToCart(product))
+   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -16,7 +21,10 @@ const ProductsCards = ({products}) => {
                      <img src={product.image} alt="product-img" className="max-h-96 md:h-64 w0full object-cover hover:scale-105 transition-all duration-300"/>
                     </Link>
                     <div className="hover:block absolute top-3 right-3">
-                        <button >
+                        <button onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToCart(product)
+                          }}>
                         <ShoppingCart className="bg-accent p-1.5 text-primary text-lg font-medium h-8 w-8"/>
                         </button>
                     </div>

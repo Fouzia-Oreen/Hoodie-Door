@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import products from '../../data/product-data.json'
 import ProductsCards from "../shop/ProductsCards"
+import CommonTitle from "../../components/CommonUses"
 
 const CategoryPage = () => {
   const {categoryName} = useParams()
@@ -18,18 +19,12 @@ const CategoryPage = () => {
   
   return (
     <>
-    <div className="bg-[#d1cfc5]">
-    <section className="section__container ">
-      <h2 className="section__header capitalize">{categoryName}</h2>
-      <p className="section__subheader">Browse a diverse range of categories, to make your winter warm & cozy</p>
-    </section>
-    </div>
+    <CommonTitle title={categoryName} desc={"Browse a diverse range of categories, to make your winter warm & cozy"} />
     {/* products cards */}
     <div className="section__container">
       <ProductsCards products={filteredProducts} />
     </div>
     </>
-
   )
 }
 

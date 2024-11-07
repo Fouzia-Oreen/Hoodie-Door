@@ -4,6 +4,7 @@ import ProductsCards from './shop/ProductsCards'
 
 const SearchProducts = () => {
    const [searchQuery, setSearchQuery] = useState('')
+  //  filter products
    const [filteredProducts, setFilteredProducts] = useState(productData)
    const handleSearch = () => {
     const query = searchQuery.toLowerCase();

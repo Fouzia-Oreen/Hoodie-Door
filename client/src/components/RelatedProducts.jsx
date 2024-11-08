@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import products from '../data/product-data.json'
-import ProductsCards from '../pages/shop/ProductsCards'
+import ProductsCards from '../pages/shop/product-details/ProductsCards'
 
 
 export default function RelatedProducts() {
     const [visibleProducts, setVisibleProducts] = useState(4)
     console.log(setVisibleProducts);
-    //const visibleProduct = products(Math.floor(Math.random() * products.length))
+
   return (
     <section className="section__container">
       <h2 className="section__header">Related Products</h2>

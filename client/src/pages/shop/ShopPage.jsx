@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import  { useEffect, useState } from 'react';
-import productData from '../../data/product-data.json'
-import ProductsCards from './ProductsCards';
-import ShopFilter from './ShopFilter';
+import { useEffect, useState } from 'react';
+import { CommonProductPageTitle } from '../../components/CommonUses';
+import productData from '../../data/product-data.json';
+import ProductFilter from '../shop/product-details/ProductFilter';
+import ProductsCards from './product-details/ProductsCards';
 
 const filters = {
     categories: ['all' ,'mens', 'womens', 'unisex', 'couple', 'accessories'],
@@ -12,7 +13,8 @@ const filters = {
         { label: '$50 to $100' , min:50, max: 100},
         { label: '$100 to $200' , min:100, max: 200},
         { label: '$200 and above' , min:200, max: Infinity},
-    ]
+    ],
+
 }
 
 const ShopPage = () => {
@@ -52,23 +54,20 @@ const ShopPage = () => {
     
   return (
     <>
-    <div className="bg-[#d1cfc5]">
-    <section className="section__container ">
-      <h2 className="section__header capitalize">Shop</h2>
-      <p className="section__subheader">Browse a diverse range of categories, to make your winter warm & cozy</p>
-    </section>
-    </div>
+    {/* title */}
+    <CommonProductPageTitle title={'Shop'} page={null}/>
+    {/* products - display */}
     <section className="section__container">
         <div className='flex flex-col md:flex-row md:gap-12 gap-8'>
             {/* sidebar */}
-            <ShopFilter 
+            <ProductFilter 
             filters={filters} 
             filterState={filterState} 
             setFilterState={setFilterState} 
             clearFilters={clearFilters}/>
             {/* main content */}
             <div>
-                <h3 className='text-xl '>Available Products : {products.length}</h3>
+                <h3 className='text-xl mb-8'> Available Products : {products.length}</h3>
                 <ProductsCards products={products} />
             </div>
         </div>

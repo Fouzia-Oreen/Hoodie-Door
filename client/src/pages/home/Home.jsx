@@ -1,5 +1,5 @@
 
-import TrendingProducts from '../shop/TrendingProducts'
+import TrendingProducts from '../shop/product-details/TrendingProducts'
 import Banner from './Banner'
 import Category from './Category'
 import Deals from './Deals'

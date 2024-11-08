@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react"
-import products from '../../data/product-data.json'
-import ProductsCards from "./ProductsCards"
+import products from '../../../data/product-data.json'
+import ProductsCards from "../product-details/ProductsCards"
+import { CommonTitle } from "../../../components/CommonUses"
+
 
 const TrendingProducts = () => {
     const [visibleProducts, setVisibleProducts] = useState(8)
@@ -10,8 +12,8 @@ const TrendingProducts = () => {
     }
   return (
     <section className="section__container">
-      <h2 className="section__header">Trending Products</h2>
-      <p className="section__subheader mb-12">Discover the hottest picks : Elevate Your Style with Our Curate Collection of Trending Hoodies</p>
+      <CommonTitle title={'Trending Products'} desc={'Discover the hottest picks : Elevate Your Style with Our Curate Collection of Trending Hoodies'} />
+ 
       {/* product-card */}
       <ProductsCards  products={products.slice(0, visibleProducts)}/>
       {/* load-more button */}

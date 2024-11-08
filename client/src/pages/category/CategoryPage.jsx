@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import products from '../../data/product-data.json'
-import ProductsCards from "../shop/ProductsCards"
-import CommonTitle from "../../components/CommonUses"
+import ProductsCards from "../shop/product-details/ProductsCards"
+import  { CommonProductPageTitle } from "../../components/CommonUses"
 
 const CategoryPage = () => {
   const {categoryName} = useParams()
@@ -19,7 +20,8 @@ const CategoryPage = () => {
   
   return (
     <>
-    <CommonTitle title={categoryName} desc={"Browse a diverse range of categories, to make your winter warm & cozy"} />
+    {/* title */}
+    <CommonProductPageTitle title={categoryName} page={categoryName} />
     {/* products cards */}
     <div className="section__container">
       <ProductsCards products={filteredProducts} />

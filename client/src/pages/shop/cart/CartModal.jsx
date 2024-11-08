@@ -1,8 +1,19 @@
 /* eslint-disable react/prop-types */
 import { Minus, Plus, X } from 'lucide-react'
 import OrderSummary from './OrderSummary'
+import { useDispatch } from 'react-redux'
+import { removeProductFromCart, updateQuantity } from '../../../redux/features/cart/CartSlice';
 
 export default function CartModal({products, isOpen, onClose}) {
+    const dispatch = useDispatch();
+    const handleQuantity = (type, id) => {
+        const payload = {type, id}
+        dispatch(updateQuantity(payload))
+    }
+    const handleRemoveItem = (e, id) => {
+        e.preventDefault()
+        dispatch(removeProductFromCart({id}))
+    }
   return (
     <div className={`fixed z-[1000] inset-0 bg-black bg-opacity-60 ${isOpen ? "opacity-100" :"opacity-0 pointer-events-none " }`} style={{transition: 'opacity:300ms'}}>
         <div className={`fixed right-0 top-0 md:w-1/3 bg-[#d1cfc5] h-full overflow-y-auto transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{transition: 'transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94'}}>
@@ -11,8 +22,8 @@ export default function CartModal({products, isOpen, onClose}) {
                 <h4 className='font-semibold text-xl'>Your Cart</h4>
                 <button className='text-text-light' onClick={onClose}><X /></button>
                 </div>
-                <div>
-                
+                {/* cart functionality */}
+                <div>             
                     {
                         products.length === 0 ? (<div>Your Cart Is Empty</div>) : (
                             products.map((item, index) => (
@@ -28,11 +39,16 @@ export default function CartModal({products, isOpen, onClose}) {
                                         </div>
                                         {/* increment, decrement, delete button */}
                                         <div className='flex flex-row md:justify-start justify-end items-center mt-2'>
-                                            <button className='size-6 px-1.5 rounded-full bg-text-dark flex text-white ml-8'><Minus /></button>
+                                            <button 
+                                            onClick={() => handleQuantity('decrement', item._id)}
+                                            className='size-6 px-1.5 rounded-full bg-text-dark flex text-white ml-8'><Minus /></button>
                                             <span className='px-2 mx-1'>{item.quantity}</span>
-                                            <button className='size-6 px-1.5 rounded-full bg-text-dark flex text-white'><Plus /></button>
+                                            <button                                     onClick={() => handleQuantity('increment', item._id)}
+                                            className='size-6 px-1.5 rounded-full bg-text-dark flex text-white'><Plus /></button>
                                             <div className='ml-5'>
-                                                <button className='text-red-600'>
+                                                <button 
+                                                onClick={(e) => handleRemoveItem(e, item._id)}
+                                                className='text-red-600'>
                                                     Remove
                                                 </button>
                                             </div>
@@ -40,13 +56,12 @@ export default function CartModal({products, isOpen, onClose}) {
                                     </div>
                                 </div>
                             ))
-                        )
+                        )         
                     }
                 </div>   
-             {/* order summary */}
-             <OrderSummary />
+                    {/* order summary */}
+                    <OrderSummary />
             </div>
-
         </div>
     </div>
   )

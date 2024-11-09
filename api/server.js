@@ -1,30 +1,41 @@
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
-import authRouter from './routes/auth/authRoutes.js';
-const app = express()
+import connectCloudinary from './config/cloudinary.js';
+import userRouter from './user/auth/userRoutes.js';
+import productRouter from './product/productRoutes.js';
+
 dotenv.config();
-
-
+const app = express();
+connectCloudinary()
 
 // URL credintials
 const PORT = process.env.PORT 
-const MONGO_URI = "mongodb+srv://hoodieDoor:4kO9BviSIuVEZfln@cluster0.72avj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const Mongo_URI = process.env.MONGO_URL
+const MONGO_URI = process.env.MONGODB_URL
 const CLIENT_URL = process.env.CLIENT_URL;
 
 
-mongoose.connect(MONGO_URI)
-.then(() => console.log('mongodb is connected'))
-.catch((error) => console.log(error));
+/* initializing mongodb */
+async function main() {
+   await  mongoose.connect(MONGO_URI)
+}
+     main()
+     .then(() => console.log('mongodb is connected'))
+     .catch((error) => console.log(error));
 
+
+/* Middlewares */
+app.use(express.json({limit: "25mb"}))
+app.use(express.urlencoded({limit: "25mb"}));
 app.use(cookieParser());
-app.use(express.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 app.use(
      cors({
-          origin : process.env.CLIENT_URL,
+          origin : CLIENT_URL,
           methods : ['GET', 'POST', 'PUT', 'DELETE'],
           allowedHeaders : [
                "Content-Type",
@@ -36,21 +47,22 @@ app.use(
           credentials : true
     })
 )
-
-
-
-// routes
-app.use('/api/auth', authRouter)
-
-// middleware
 app.use((err, req, res, next) => {
      console.log(err.stack);
      res.status(500).json({
          success: false,
          message: "Something went wrong!"
      })
- })
+})
 
+
+/* Routes */
+app.use('/api/auth', userRouter)
+app.use('/api/shop', productRouter)
+
+
+
+/* app listen */
 app.listen(PORT, () => {
      console.log(`Server is listening on port: ${PORT}` );
 })

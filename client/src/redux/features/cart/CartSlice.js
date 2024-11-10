@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -9,7 +10,6 @@ const initialState = {
     grandTotal: 0
 }
 
-  
 const CartSlice = createSlice({
     name: 'cart',
     initialState,

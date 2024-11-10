@@ -5,8 +5,10 @@ import Home from "../pages/home/Home";
 import ShopPage from "../pages/shop/ShopPage";
 //import SingleProductPage from "../pages/shop/SingleProductPage";
 //import SingleProducts from "../pages/shop/product-details/SingleProducts";
+import Login from "../components/Login";
 import SearchProductPage from "../pages/shop/SearchProductPage";
 import SingleProductPage from "../pages/shop/SingleProductPage";
+import Register from "../components/Register";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +20,11 @@ const router = createBrowserRouter([
         { path: "/search", element: <SearchProductPage />},
         { path: "/shop", element: <ShopPage />},
         { path: "/shop/:id", element: <SingleProductPage />},
-
     ]
   },
+  { path: '/login', element: (<Login />)},
+  { path: '/register', element: (<Register />)},
+
 
 ]);
 

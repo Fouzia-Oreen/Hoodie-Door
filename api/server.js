@@ -58,7 +58,7 @@ app.use((err, req, res, next) => {
 
 /* Routes */
 app.use('/api/auth', userRouter)
-app.use('/api/shop', productRouter)
+app.use('/api/products', productRouter)
 
 
 

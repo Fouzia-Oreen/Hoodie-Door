@@ -7,6 +7,7 @@ const authApi = createApi({
         baseUrl: `${getBaseUrl()}/api/auth`,
         credentials: 'include'
     }),
+    tagTypes: ['User'],
     endpoints: (builder) => ({
         // register-user
         registerUser : builder.mutation({
@@ -37,7 +38,7 @@ const authApi = createApi({
                 url : `/users/${userId}`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["Users"],
+            invalidatesTags: ["User"],
         }),
         // update-user
         updateUser : builder.mutation({
@@ -47,7 +48,7 @@ const authApi = createApi({
                 body: {role}
             }),
             refetchOnMount: true,
-            invalidatesTags: ["Users"],
+            invalidatesTags: ["User"],
         }),
         // edit-user-profile
         editProile : builder.mutation({
@@ -64,7 +65,7 @@ const authApi = createApi({
                 method: "GET",
             }),
             refetchOnMount: true,
-            invalidatesTags: ["Users"],
+            invalidatesTags: ["User"],
         }),
     })
 })

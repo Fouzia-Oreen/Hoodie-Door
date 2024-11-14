@@ -1,9 +1,24 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { ChevronRight } from "lucide-react"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom";
+import products from '../data/product-data.json'
+
 
 // common title
 export const CommonProductPageTitle = ({title,  page }) => {
+  const {categoryName} = useParams()
+  const [filteredProducts, setFilteredProducts] = useState([])
+  
+  useEffect(() => {
+    const filtered = products.filter((product)=>product.category === categoryName.toLowerCase());
+    setFilteredProducts(filtered)
+  }, [categoryName])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+  
   return (
     <div className="bg-[#d1cfc5]">
     <section className="section__container">
@@ -12,7 +27,7 @@ export const CommonProductPageTitle = ({title,  page }) => {
       <div className="section__subheader flex space-x-2">
         <span ><Link to='/'>home</Link></span><ChevronRight />
         <span ><Link to='/shop'>shop</Link></span><ChevronRight />
-        <span>{page}</span>
+        <span>{categoryName}</span>
       </div>
       </div>
     </section>

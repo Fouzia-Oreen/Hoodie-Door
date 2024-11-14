@@ -36,3 +36,23 @@ export const userDropDownMenu = [
       path : "/dashboard/add-new-post"
     },
 ]
+
+export const shopDropDownMenu = [
+  {
+    label : "Shop", 
+    path : "/shop"
+  },
+  {
+    label : "Mens", 
+    path : "/shop/category/mens"
+  },
+  {
+    label : "Womens", 
+    path : "/shop/category/womens"
+  },
+  {
+    label : "Accessories",
+    path : "/shop/category/accessories"
+  },
+]
+// https://i.ibb.co.com/gRwP82L/home-1.png

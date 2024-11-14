@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { ShoppingCart } from "lucide-react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import RatingStars from "../../../components/RatingStars.jsx";
-import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/cart/CartSlice.js";
 
 const ProductsCards = ({products}) => {

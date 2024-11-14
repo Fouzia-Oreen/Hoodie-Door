@@ -1,12 +1,8 @@
 import bcrypt from "bcryptjs";
-import jwt from 'jsonwebtoken';
-import UserModel from './userModel.js'
-import validator from 'validator'
+import validator from 'validator';
+import  generateToken  from "../middleware/generateToken.js";
+import User from './userModel.js';
 
-// create token function
-const createToken = (id, role) => {
-    return jwt.sign({id, role}, process.env.JWT_SECRET, {expiresIn :"1h"})
-}
 
 // route for user - register
 export const registerUser = async (req, res) => {
@@ -14,7 +10,7 @@ export const registerUser = async (req, res) => {
     try {
         const {username, email, password} = req.body;
         // checking if user with email exist
-        const exists = await UserModel.findOne({email});
+        const exists = await User.findOne({email});
         if (exists) {
             return res.status(500).json({
                         success: false,
@@ -38,14 +34,14 @@ export const registerUser = async (req, res) => {
         // hash the password for the new user
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
-        const newUser = new UserModel({
+        const newUser = new User({
             username, 
             email, 
             password:hashedPassword
         })
         const user = await newUser.save();
         // get the token from jwt
-        const token = createToken(user._id)
+        const token = generateToken(user._id)
         res.status(201).json({
             success: true,
             token,
@@ -68,7 +64,7 @@ export const loginUser = async (req, res) => {
    try {
     const {email, password} = req.body;
     // checking if user with email exist
-    const user = await UserModel.findOne({email});
+    const user = await User.findOne({email});
     if (!user) {
         return res.status(500).json({
                     success: false,
@@ -78,7 +74,7 @@ export const loginUser = async (req, res) => {
     // if the user is matched wmwil
     const isMatch = await bcrypt.compare(password, user.password)
     if (isMatch) {
-        const token = createToken(user._id);
+        const token = await generateToken(user._id);
         res.cookie('token', token, {
             httpOnly: true,
             secure : true,
@@ -87,7 +83,7 @@ export const loginUser = async (req, res) => {
         res.status(201).json({
             success: true,
             token,
-            message : "Login successfull",
+            message : "Login is successfull",
             user: {
                 _id:user._id,
                 email:user.email,
@@ -127,15 +123,13 @@ export const logoutUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     try {
         const {id} = req.params;
-        const user = await UserModel.findByIdAndDelete(id);
+        const user = await User.findByIdAndDelete(id);
         if (!user) {
             return res.status(404).send({
                 message: "User not found"
             })
         }
-        res.status(200).send({
-            message: "User deleted successfully"
-        })
+        res.status(200).send({ message: "User deleted successfully" })
     } catch (error) {
         console.error("Error Deleting User", error);
         res.status(500).json({
@@ -148,7 +142,7 @@ export const deleteUser = async (req, res) => {
 // get-all-user
 export const getAllUser = async (req, res) => {
     try {
-        const users = await UserModel.find({}, 'id email role').sort({createdAt: -1});
+        const users = await User.find({}, 'id email role').sort({createdAt: -1});
         res.status(200).send(users)
     } catch (error) {
         console.error("Error Fetching User", error);
@@ -164,7 +158,7 @@ export const updateUserRole = async (req, res) => {
     try {
         const {id} = req.params;
         const {role} = req.body;
-        const user = await UserModel.findByIdAndUpdate(id, {role}, {new: true});
+        const user = await User.findByIdAndUpdate(id, {role}, {new: true});
         if (!user) {
             return res.status(404).send({message : "User not found"})
         }
@@ -185,16 +179,16 @@ export const updateUserProfile = async (req, res) => {
         if (!userId) {
             return res.status(400).send({message : "User Id is required"})
         }
-        const user = await UserModel.findById(userId);
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(400).send({message : "User not found"})
         }
         // update profile
-        if (username !== undefined) {user.username = username}
-        if (profileImage !== undefined) {user.profileImage = profileImage}
-        if (bio !== undefined) {user.bio = bio}
-        if (profession !== undefined) {user.profession = profession}
-        await user.save()
+        if (username != undefined) user.username = username;
+        if (profileImage != undefined) user.profileImage = profileImage;
+        if (bio != undefined) user.bio = bio;
+        if (profession != undefined) user.profession = profession;
+        await user.save(); 
         res.status(200).send({message: "User Profile updated successfully", user : {
             _id:user._id,
             email:user.email,

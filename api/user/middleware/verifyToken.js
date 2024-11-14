@@ -1,17 +1,16 @@
 import jwt from 'jsonwebtoken';
 
 // verify token
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     try {
        const token = req.cookies.token;
        //const token = req.headers["Authorization"].split(" ")[1];
-
        if (!token) {
         return res.status(401).send({
             message : "Invalid Token"
         })
        }
-       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+       const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
        if (!decoded) {
         return res.status(401).send({
             message : "Invalid Token or not valid"
@@ -19,7 +18,7 @@ export const verifyToken = (req, res, next) => {
        }
        req.userId = decoded.userId;
        req.role= decoded.role;
-       next()
+       next();
     } catch (error) {
         console.log("Error while verifying token", error);
         res.status(401).send({
@@ -27,3 +26,4 @@ export const verifyToken = (req, res, next) => {
         })
     }
 }
+export default verifyToken;

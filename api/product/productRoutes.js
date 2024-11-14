@@ -1,6 +1,6 @@
 import express from 'express';
-import { addProduct, getAllProduct, getProductById, updateProduct , removeProduct, getRelatedProduct} from './productController.js';
-import { verifyToken } from '../user/middleware/verifyToken.js';
+import verifyToken from '../user/middleware/verifyToken.js';
+import { addProduct, getAllProduct, getProductById, getRelatedProduct, removeProduct, updateProduct } from './productController.js';
 import verifyAdmin from '../user/middleware/verifyAdmin.js';
 const productRouter = express.Router()
 
@@ -12,7 +12,7 @@ productRouter.get('/', getAllProduct );
 // get single product by id
 productRouter.get('/:id', getProductById)
 // update a product
-productRouter.patch('/update-product/:id', verifyToken, verifyAdmin, updateProduct)
+productRouter.patch('/update-product/:id',verifyToken, verifyAdmin, updateProduct)
 // delete product
 productRouter.delete('/:id', removeProduct)
 // get related products

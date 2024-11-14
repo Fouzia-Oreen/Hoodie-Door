@@ -4,7 +4,7 @@
 
 :root {
   --primary-color: #FBF9F3;
-  --primary-color-light: #d1cfc5;
+  --primary-color-light: #D1CFC5;
   --primary-color-dark: #c2bea7;
   --text-dark: #4b4942;
   --text-light: #787569;
@@ -21,7 +21,7 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+/* sections */
 .section__container {
   max-width: var(--max-width-1400);
   margin: auto;
@@ -36,7 +36,6 @@
   color: var(--text-dark);
   text-align: center;
 }
-
 .section__subheader {
   max-width: 500px;
   margin: auto;
@@ -44,7 +43,6 @@
   text-align: center;
   margin-bottom: 3rem;
 }
-
 .btn {
   padding: 0.75rem 1.5rem;
   outline: none;
@@ -56,13 +54,11 @@
   color: var(--dark);
   font-weight: 500;
 }
-
 .btn:hover:hover,
 .btn__banner:hover {
   background-color: var(--accent);
   color: var(--primary-color);
 }
-
 img {
   width: 100%;
   display: flex;
@@ -71,114 +67,25 @@ img {
 a {
   text-decoration: none;
 }
-
 body {
   font-family: "Tomorrow", serif;
   background-color: var(--primary-color);
   color: var(--dark);
 }
-
-nav {
-  max-width: var(--max-width-1200);
-  margin: auto;
-  padding: 2rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* background-color: var(--primary-color-light); */
-  border-bottom: 1px solid var(--dark);
+::-webkit-scrollbar {
+  display: none;
+}
+/* navbar */
+a.active hr{
+  display: block;
+}
+@media (max-width:640px) {
+  nav a.active {
+    background-color: var(--primary-color-dark);
+  }
 }
 
-.nav__links {
-  flex: 1;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.link a {
-  font-weight: 500;
-  color: var(--text-dark);
-}
-
-.link a:hover {
-  color: var(--text-light);
-}
-
-.nav__logo a {
-  font-size: 2rem;
-  font-weight: 800;
-  font-family: var(--header-font);
-  color: var(--text-dark);
-}
-
-.nav__logo a span {
-  color: var(--primary-color);
-}
-
-.nav__icons {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 2rem;
-}
-
-.nav__icons span a {
-  font-size: 1.25rem;
-  color: var(--text-dark);
-}
-
-.nav__icons span a:hover {
-  color: var(--dark);
-}
-
-.header__container {
-  min-height: 650px;
-  background-color: var();
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  align-items: center;
-}
-
-.header__content {
-  max-width: 600px;
-  margin-left: auto;
-}
-
-.header__content h4 {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.header__content h1 {
-  font-size: 5rem;
-  font-weight: 800;
-  text-shadow: #787569;
-}
-
-.header__content p {
-  margin-bottom: 2rem;
-  color: var(--text-light);
-}
-
-.header__image {
-  position: relative;
-  height: 100%;
-}
-
-.header__image img {
-  position: absolute;
-  left: 50%;
-  bottom: -5rem;
-  transform: translateX(-50%);
-  max-width: 500px;
-}
-
+/* category */
 .categories__grid {
   max-width: var(--max-width-900);
   margin: auto;
@@ -211,6 +118,7 @@ nav {
   color: var(--text-dark);
 }
 
+/* hero */
 .hero__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -225,7 +133,6 @@ nav {
   background-color: var(--primary-color-light);
   height: 180px;
 }
-
 
 .hero__content p {
   font-size: 0.9rem;
@@ -252,6 +159,7 @@ nav {
 
 }
 
+/* products */
 .product__grid {
   max-width: var(--max-width-900);
   margin: 4rem auto;
@@ -400,53 +308,7 @@ nav {
   color: var(--text-light);
 }
 
-
-/* blog */
-.blog__container {
-  background-color: var(--extra-light);
-  border-radius: 1rem;
-}
-
-.blog__grid {
-  max-width: var(--max-width-900);
-  margin: auto;
-  margin-top: 4rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.blog__card {
-  background-color: var(--white);
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-}
-
-.blog__card__content {
-  padding: 1rem;
-  text-align: center;
-}
-
-.blog__card__content h6 {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--primary-color);
-}
-
-.blog__card__content h4 {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-  font-family: var(--header-font);
-  color: var(--text-dark);
-}
-
-.blog__card__content p {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-light);
-}
-
+/* footer */
 .footer__container {
   max-width: var(--max-width-1200);
   display: grid;

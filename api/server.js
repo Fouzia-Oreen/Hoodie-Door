@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import connectCloudinary from './config/cloudinary.js';
 import userRouter from './user/auth/userRoutes.js';
 import productRouter from './product/productRoutes.js';
+import reviewRouter from './review/reviewRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -59,6 +60,7 @@ app.use((err, req, res, next) => {
 /* Routes */
 app.use('/api/auth', userRouter)
 app.use('/api/products', productRouter)
+app.use('/api/reviews', reviewRouter)
 
 
 

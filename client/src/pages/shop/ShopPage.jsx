@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { CommonProductPageTitle } from '../../components/CommonUses';
-import productData from '../../data/product-data.json';
+
+import { useState } from 'react';
+import { useFetchAllProductsQuery } from '../../redux/features/product/productApi.js';
 import ProductFilter from '../shop/product-details/ProductFilter';
 import ProductsCards from './product-details/ProductsCards';
 
@@ -14,36 +13,36 @@ const filters = {
         { label: '$100 to $200' , min:100, max: 200},
         { label: '$200 and above' , min:200, max: Infinity},
     ],
-
 }
 
 const ShopPage = () => {
-    const [products, setProducts] = useState(productData)
     const [filterState, setFilterState] = useState({ 
-                                            category:'all', 
-                                            color:'all', 
-                                            priceRange:''})
-
-    const applyFilters = () => {
-        let filteredProducts = productData;
-        // filter by category
-        if (filterState.category && filterState.category != 'all') {
-            filteredProducts = filteredProducts.filter(product => product.category === filterState.category)
+            category:'all', 
+            color:'all', 
+            priceRange:''
+    });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [ProductPerPage]  = useState(8);
+    const {category, color, priceRange} = filterState;
+    const [minPrice, maxPrice] = priceRange.split('-').map(Number);
+    const {data: {products = [], totalPages, totalProducts} = {}, error, isLoading} = useFetchAllProductsQuery({
+        category : category != "all" ? category : "", 
+        color : color != "all" ? color : "", 
+        maxPrice : isNaN(maxPrice) ? "" : maxPrice , 
+        minPrice : isNaN(minPrice) ? "" : minPrice , 
+        page : currentPage, 
+        limit : ProductPerPage
+    });
+    // paginations
+    const startProduct = (currentPage - 1) * ProductPerPage + 1;
+    const endProduct = startProduct + (products.length - 1);
+    // pagination function
+    const handlePageChange = (pageNumber) => {
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber)
         }
-        // check filter by colors
-        if (filterState.color && filterState.color != 'all') {
-            filteredProducts = filteredProducts.filter(product => product.color === filterState.color )
-        }
-        // filter by price
-        if (filterState.priceRange) {
-            const [minPrice, maxPrice] = filterState.priceRange.split('-').map(Number);
-            filteredProducts = filteredProducts.filter(product => product.price >= minPrice && product.price <= maxPrice)
-        }
-        setProducts(filteredProducts)
     }
-    useEffect(() => {
-        applyFilters()
-    }, [filterState]);
+    // clear filter
     const clearFilters = () => {
         setFilterState({
             category:'all', 
@@ -51,11 +50,11 @@ const ShopPage = () => {
             priceRange:''
         })
     }
-    
+    if (isLoading) return <div>Loading....</div>
+    if (error)  return <div>Error showing products</div>
+
   return (
     <>
-    {/* title */}
-    <CommonProductPageTitle title={'Shop'} page={null}/>
     {/* products - display */}
     <section className="section__container">
         <div className='flex flex-col md:flex-row md:gap-12 gap-8'>
@@ -67,8 +66,30 @@ const ShopPage = () => {
             clearFilters={clearFilters}/>
             {/* main content */}
             <div>
-                <h3 className='text-xl mb-8'> Available Products : {products.length}</h3>
+                {/* products available */}
+                <h3 className='text-sm mb-8 font-medium text-right'> 
+                    Showing {startProduct} to {endProduct} of {totalProducts} products
+                </h3>
+                {/* all products */}
                 <ProductsCards products={products} />
+                {/* pagination */}
+                <div className='mt-6 flex justify-center'>
+                   <button 
+                   disabled={currentPage === 1}
+                   onClick={() => handlePageChange(currentPage - 1)}
+                   className='px-3 py-2 bg-[#d1cfc5] border-[1px] border-dark rounded-sm font-medium mr-2'>Prev</button>
+                   {
+                    [...Array(totalPages)].map((_, index) => (
+                    <button 
+                    key={index} 
+                    onClick={() => handlePageChange(index + 1)}
+                    className={`px-4 py-2 border-[1px] border-dark rounded-sm font-medium mx-1 ${currentPage === index + 1 ? 'bg-[#d1cfc5] hover:bg-accent ' : "bg-[#d1cfc5]"}`}>{index + 1}</button>))
+                   }
+                   <button 
+                   disabled={currentPage === totalPages}
+                   onClick={() => handlePageChange(currentPage + 1)}
+                   className='px-3 py-2 bg-[#d1cfc5] border-[1px] border-dark rounded-sm font-medium ml-2'>Next</button>
+                </div>
             </div>
         </div>
     </section>

@@ -7,8 +7,6 @@ const SearchProductPage = () => {
     <>
     <CommonProductPageTitle title={'Search Product in Our Shop'} page={'search'} />
     <SearchProductContainer />
-
- 
     </>
   )
 }

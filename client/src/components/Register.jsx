@@ -11,7 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [registerUser, {isLoading: loginLoading}] = useRegisterUserMutation();
+  const [registerUser, {isLoading}] = useRegisterUserMutation();
 
   const handleRegister = async (e) => {
       e.preventDefault();

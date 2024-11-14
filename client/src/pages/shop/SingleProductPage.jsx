@@ -1,3 +1,4 @@
+import { CommonProductPageTitle } from "../../components/CommonUses"
 import RelatedProducts from "../../components/RelatedProducts"
 import ClientReviews from "../../components/Reviews"
 import SingleProducts from "./product-details/SingleProducts"
@@ -5,9 +6,8 @@ import SingleProducts from "./product-details/SingleProducts"
 const SingleProductPage = () => {
   return (
     <div>
-      <div>
-
-      </div>
+      {/* title */}
+      <CommonProductPageTitle />
       {/* product details */}
       <SingleProducts />
       {/* review or ratings */}

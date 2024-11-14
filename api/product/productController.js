@@ -1,13 +1,14 @@
-import reviewModel from "../review/reviewModel.js";
-import productModel from "./productModel.js"
+import Reviews from "../review/reviewModel.js";
+import Products from "./productModel.js";
+
 
 // add product 
 const addProduct = async (req, res) => {
     try {
-        const newProduct = new productModel({...req.body})
+        const newProduct = new Products({...req.body})
         const savedProduct = await newProduct.save();
         // calculate reviews
-        const reviews = await reviewModel.find({productId: savedProduct._id});
+        const reviews = await Reviews.find({productId: savedProduct._id});
         if (reviews.length > 0) {
             const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
             const averageRating = totalRating / reviews.length;
@@ -44,9 +45,9 @@ const getAllProduct = async (req, res) => {
         }
         // pages
         const skip = (parseInt(page) - 1) * parseInt(limit);
-        const totalProducts = await productModel.countDocuments(filter);
+        const totalProducts = await Products.countDocuments(filter);
         const totalPages = Math.ceil(totalProducts / parseInt(limit))
-        const products = await productModel.find(filter).skip(skip).limit(parseInt(limit)).populate("author", "email").sort({ createdAt : -1});
+        const products = await Products.find(filter).skip(skip).limit(parseInt(limit)).populate("author", "email").sort({ createdAt : -1});
 
         res.status(201).send({products, totalPages, totalProducts});
         // console.log(products, totalPages, totalProducts)
@@ -59,11 +60,11 @@ const getAllProduct = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const productId = req.params.id;
-        const product = await productModel.findById(productId).populate('author', "email username");
+        const product = await Products.findById(productId).populate('author', "email username");
         if (!product) {
             res.status(404).send({message : "Product not found!"});
         }
-        const reviews = await reviewModel.find({productId}).populate('author', "email username");
+        const reviews = await Reviews.find({productId}).populate('author', "email username");
         res.status(201).send({product, reviews});
 
     } catch (error) {
@@ -75,11 +76,14 @@ const getProductById = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const productId = req.params.id;
-        const updatedProduct = await productModel.findByIdAndUpdate(productId, {...req.body}, {new: true})
+        const updatedProduct = await Products.findByIdAndUpdate(productId, {...req.body}, {new: true})
         if (!updatedProduct) {
             return res.status(404).send({message: "Product not found"})
         }
-        res.status(201).send({message: "Product updated successfull", product: updatedProduct})
+        res.status(201).send({
+                        message: "Product updated successfull", 
+                        product: updatedProduct
+                    })
     } catch (error) {
         console.error("Error updating product", error );
         res.status(500).send({message : "Failed to update the product"});
@@ -89,12 +93,12 @@ const updateProduct = async (req, res) => {
 const removeProduct = async (req, res) => {
     try {
         const productId = req.params.id;
-        const deletedProduct = await productModel.findByIdAndDelete(productId)
+        const deletedProduct = await Products.findByIdAndDelete(productId)
         if (!deletedProduct) {
             return res.status(404).send({message: "Product not found"})
         }
         // delete reviews of that product
-        await reviewModel.deleteMany({productId: productId})
+        await Reviews.deleteMany({productId: productId})
         res.status(201).send({message: "Product deleted successfull", product: deletedProduct})
     } catch (error) {
         console.error("Error deleting product", error );
@@ -108,7 +112,7 @@ const getRelatedProduct = async (req, res) => {
         if (!id) {
             return res.status(404).send({message: "Product not found"})
         }
-        const product = await productModel.findById(id);
+        const product = await Products.findById(id);
         if (!product) {
             return res.status(404).send({message: "Product not found"})
         }
@@ -118,11 +122,11 @@ const getRelatedProduct = async (req, res) => {
             .filter((word) => word.length > 1)
             .join("|"), 
         "i");
-        const relatedProducts = await productModel.find({
-            _id: {$ne: id},
+        const relatedProducts = await Products.find({
+            _id: {$ne: id}, //Exclude the current product
             $or: [
-                {name : {$regex: titleRegex}},
-                {category: product.category}
+                {name : {$regex: titleRegex}}, // Match similar names
+                {category: product.category}, // Match the same category
             ]
         });
         res.status(201).send(relatedProducts)
@@ -133,4 +137,5 @@ const getRelatedProduct = async (req, res) => {
 }
 
 
-export {addProduct, removeProduct, getProductById , updateProduct, getAllProduct, getRelatedProduct}
+export { addProduct, getAllProduct, getProductById, getRelatedProduct, removeProduct, updateProduct };
+

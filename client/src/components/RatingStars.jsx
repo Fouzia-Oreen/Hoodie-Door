@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
+
 const RatingStars = ({rating}) => {
     const stars = []
     for (let i = 1; i <= 5; i++) {
@@ -9,7 +9,7 @@ const RatingStars = ({rating}) => {
        ) 
     }
   return (
-    <div className="product__rating">{stars}</div>
+    <div className="product__rating pl-2">{stars}</div>
   )
 }
 

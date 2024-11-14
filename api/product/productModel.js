@@ -1,5 +1,4 @@
 import mongoose, { model } from 'mongoose';
-import UserModel from '../user/auth/userModel.js'
 
 const ProductSchema = new mongoose.Schema({
     name : { type: String,  required : true  },
@@ -7,16 +6,16 @@ const ProductSchema = new mongoose.Schema({
     price : { type: Number, required : true },
     oldPrice : { type: Number},
     color : { type: String },
-    rating : { type: Number, default:0 },
-    // image : { type: Array, required : true },
+    rating : { type: Number, default: 0 },    
     image : { type: String, required : true },
     category : { type: String, required : true },
-   // subCategory : { type: String, required : true },
+    // image : { type: Array, required : true },
+    // subCategory : { type: String, required : true },
     //sizes : { type: Array},
-   // date : { type: Number, required : true },
+    // date : { type: Number, required : true },
     // bestseller : { type: Boolean },
-    author: {type: mongoose.Schema.Types.ObjectId, ref: UserModel, required: true}
+    author: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}
 });
 
-const productModel = mongoose.models.product || mongoose.model("product", ProductSchema);
-export default productModel
+const Products = mongoose.models.product || mongoose.model("Product", ProductSchema);
+export default Products;

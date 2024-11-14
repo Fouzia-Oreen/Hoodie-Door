@@ -1,115 +1,94 @@
-import { Link, useNavigate } from "react-router-dom";
-import logo from '../assets/logo.png';
-import { useDispatch, useSelector } from "react-redux";
+//import { useState } from "react";
+//import { useSelector } from "react-redux";
 import { useState } from "react";
-import CartModel from "../pages/shop/cart/CartModal";
-import avatarImg from '../assets/avatar.png'
-import { useLogoutUserMutation } from "../redux/features/auth/authApi";
-import { adminDropDownMenu, userDropDownMenu } from "../data/user-data.js"
-import { logout } from "../redux/features/auth/authSlice.js";
+import { Link, NavLink } from "react-router-dom";
+import { assets } from '../assets/images/assets.js';
+import cart from '../assets/images/cart_icon.png';
+import dropdown from '../assets/images/dropdown_icon.png';
+import menu from '../assets/images/menu_icon.png';
+import { useContext } from "react";
+import { ShopContext } from "../context/ShopContext.jsx";
 
-const Navbar = () => {
-  const products = useSelector((state) => state.cart.products);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+
+export default function Navbar() {
+  const [visible, setVisible] = useState(false);
+  const {setShowSearch, getCartCount} = useContext(ShopContext)
+  //const products = useSelector((state) => state.cart.products);
+  //const [isCartOpen, setIsCartOpen] = useState(false);
 
   // cart toggle function
-  const handleCartToggle = () => {
-    setIsCartOpen(!isCartOpen)
-  }
+  // const handleCartToggle = () => {
+  //   setIsCartOpen(!isCartOpen)
+  // }
 
-  // show user if logged-in
-  const dispatch = useDispatch();
-  const {user} = useSelector((state) => state.auth);
-
-  // dropdown for user-profile
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const handleDropDownToggle = () => {
-    setIsDropDownOpen(!isDropDownOpen)
-  }
-
-  // logout user function
-  const [logoutUser] = useLogoutUserMutation();
-  const navigate = useNavigate()
-
-  // toggle dropdown menu
-  const dropDownMenu = user?.role === 'admin' ? [...adminDropDownMenu] : [...userDropDownMenu];
-
-  // handle-logout function
-  const handleLogout = async () => {
-    try {
-        await logoutUser().unwrap();
-        dispatch(logout());
-        navigate('/')
-    } catch (error) {
-      console.error("Failed to log out", error)
-    }
-  }
-
+  const navlinks =[
+    {link:"/", title:"Home"},
+    {link:"/about", title:"About"},
+    {link:"/collection", title:"Collection"},
+    {link:"/contact", title:"Contact"},
+  ]
+  
   return (
-    <header className="fixed-nav-bar w-nav ">
-      <nav className="max-w-screen-2xl mx-auto px-4 flex justify-between items-center">
-        <ul className="nav__links">
-            <li className='link'><Link to="/shop">Shop</Link></li>
-            <li className='link'><Link to="/categories/mens">Mens</Link></li>
-            <li className='link'><Link to="/categories/womens">Womens</Link></li>
-            <li className='link'><Link to="/categories/accessories">Accessories</Link></li>
+    <>
+      <nav className="flex items-center justify-between py-5 px-2 border-b-[1px] border-text-dark ">
+        <ul className="hidden sm:flex gap-5 text-sm">
+          {
+            navlinks.map((nav) => (
+              <NavLink to={nav.link} key={nav.link} className="flex flex-col items-start gap-[2px]">
+              <p className="font-medium text-text-dark">{nav.title}</p>
+              <hr className="w-2/4 border-none h-[1.5px] bg-text-dark hidden" />
+            </NavLink>
+            ))
+          }
+          {/* <ShopDropDownMenu /> */}
         </ul>
-        <div className='nav__logo'>
-            <Link to="/">
-                <img src={logo} alt="logo" className='w-[40px] h-[40px] object-contain'/>
-            </Link>
+        {/* logo */}
+        <Link to="/">
+        <img src={assets.logo} alt="logo" className='size-[44px] '/>
+        </Link>
+        <div className="flex gap-6 items-center">
+          <img src={assets.search_icon} alt="search" className="size-5" onClick={() => setShowSearch(true)}/>
+          <div className="group relative">
+            <img src={assets.profile_icon} alt="profile" className="size-5 cursor-pointer"/>
+            <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+              {/* drop-down-menu */}
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#D1CFC5] border-[1px] border-dark relative z-20">
+                <p className="cursor-pointer hover:text-dark">My Profile</p>
+                <p className="cursor-pointer hover:text-dark">Orders</p>
+                <p className="cursor-pointer hover:text-dark">Logout</p>
+                {/* <DropdownProfile />  */}
+              </div>
+            </div>
+          </div>
+          <Link to="/cart" className="relative">
+              <img src={cart} alt="" className="size-5"/>
+              <p className="absolute right-[-5px] bottom-[-5px] text-center bg-accent text-white size-3.5 rounded-full text-[8px]">{getCartCount()}</p>
+          </Link>
+          {/* sidebar menu on click */}
+          <img src={menu} alt="" className="size-5 cup sm:hidden" onClick={() => setVisible(true)}/>
         </div>
-        <div className="nav__icons relative">
-            <span>
-                <Link to="/search">
-                    <i className="ri-search-line"></i>
-                </Link>
-            </span>
-            <span>
-                <button className='duration-200' onClick={handleCartToggle}>
-                    <Link>
-                    <i className="ri-shopping-bag-line"></i>
-                    <sup className='text-sm inline-block px-1.5 text-primary rounded-full text-center bg-accent'>{products.length}</sup>
-                    </Link>
-                </button>
-            </span>
-            <span>
-              {
-                user && user ? (<>
-                <img 
-                onClick={handleDropDownToggle}
-                src={user?.profileImage || avatarImg} alt="user-profile" className="h-7 rounded-full cursor-pointer border-[1px] border-text-dark" />
-                {
-                  isDropDownOpen && (
-                    <div className="absolute right-0 mt-3 p-4 w-48 bg-[#D1CFC5] border-[1px] border-dark rounded-sm z-50">
-                      <ul className="space-y-4 p-2 text-sm text-text-dark">
-                        {dropDownMenu.map((menu, index) => (
-                          <li key={index}>
-                            <Link 
-                            onClick={() => setIsDropDownOpen(false)}
-                            className="dropdrop-items" 
-                            to={menu.path}>{menu.label}</Link>
-                          </li>
-                        ))}
-                        <li><Link to={''} onClick={handleLogout} className="dropdrop-items">Logout</Link></li>
-                      </ul>
-                    </div>
-                  )
-                }
-                </>) : (
-                  <Link to="login">
-                  <i className="ri-user-line"></i>
-                </Link>)
-              }
-
-            </span>
+        {/* open menu on smmall devices */}
+        <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-[#D1CFC5] transition-all ${visible ? 'w-full z-10' : 'w-0'}`}>
+          <div className="flex flex-col text-text-dark ">
+            <div className="flex items-center  gap-4 p-3 cursor-pointer" onClick={() => setVisible(false)}>
+              <img src={dropdown} alt="" className="size-4 rotate-180"/>
+              <p>Back</p>
+            </div>
+          {/* mobile benu */}
+          {
+            navlinks.map((nav) => (
+              <NavLink to={nav.link} key={nav.link} className="py-2 pl-12 mt-8 text-xl " onClick={() => setVisible(false)}>
+              <p className="font-medium text-text-dark">{nav.title}</p>
+              </NavLink>
+            ))
+          }
+          </div>
         </div>
       </nav>
-      {
+      {/* {
         isCartOpen && <CartModel products={products} isOpen={isCartOpen} onClose={handleCartToggle}/>
-      }
-    </header>
+      } */}
+
+    </>
   )
 }
-
-export default Navbar

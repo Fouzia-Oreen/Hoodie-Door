@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
+
 import { assets } from '../assets/images/assets'
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -31,7 +31,7 @@ const Product = () => {
   
 
 
-  return productData ?(
+  return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       {/* product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row section_container">

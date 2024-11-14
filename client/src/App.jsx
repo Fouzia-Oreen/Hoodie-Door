@@ -1,20 +1,20 @@
 import { Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Navbar from '../src/components/Navbar'
 import './App.css'
 import Footer from './components/Footer'
-import Navbar from '../src/components/Navbar'
+import SearchBar from './components/SearchBar'
 import About from './pages/About'
+import Cart from './pages/Cart'
 import Collection from './pages/Collection'
 import Contact from './pages/Contact'
 import Home from './pages/Home'
-import Product from './pages/Product'
-import Cart from './pages/Cart'
 import Login from './pages/Login'
-import Register from './pages/Register'
-import PlaceOrders from './pages/PlaceOrders'
 import Order from './pages/Order'
-import SearchBar from './components/SearchBar'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import PlaceOrders from './pages/PlaceOrders'
+import Product from './pages/Product'
+import Register from './pages/Register'
 
 function App() {
   return (

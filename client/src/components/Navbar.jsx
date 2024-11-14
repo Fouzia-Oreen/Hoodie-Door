@@ -1,12 +1,11 @@
 //import { useState } from "react";
 //import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { assets } from '../assets/images/assets.js';
 import cart from '../assets/images/cart_icon.png';
 import dropdown from '../assets/images/dropdown_icon.png';
 import menu from '../assets/images/menu_icon.png';
-import { useContext } from "react";
 import { ShopContext } from "../context/ShopContext.jsx";
 
 

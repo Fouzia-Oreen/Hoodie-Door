@@ -54,19 +54,24 @@ import p_img50 from './p_img50.png'
 import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
 
+// import p_img53 from './mens.png'
+// import p_img54 from './womens.png'
+// import p_img55 from './accessories.jpg'
+// import p_img56 from './couple.png'
+
 
 import logo from './logo.png'
-import hero_img from './hero_img.png'
+// import hero_img from './hero_img.png'
 import cart_icon from './cart_icon.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
-import exchange_icon from './exchange_icon.png'
+// import exchange_icon from './exchange_icon.png'
 import profile_icon from './profile_icon.png'
-import quality_icon from './quality_icon.png'
+// import quality_icon from './quality_icon.png'
 import search_icon from './search_icon.png'
 import star_dull_icon from './star_dull_icon.png'
 import star_icon from './star_icon.png'
-import support_img from './support_img.png'
+// import support_img from './support_img.png'
 import menu_icon from './menu_icon.png'
 import about_img from './about_img.png'
 import contact_img from './contact_img.png'
@@ -76,17 +81,17 @@ import cross_icon from './cross_icon.png'
 
 export const assets = {
     logo,
-    hero_img,
+   // hero_img,
     cart_icon,
     dropdown_icon,
-    exchange_icon,
+   // exchange_icon,
     profile_icon,
-    quality_icon,
+   // quality_icon,
     search_icon,
     star_dull_icon,
     star_icon,
     bin_icon,
-    support_img,
+   // support_img,
     menu_icon,
     about_img,
     contact_img,
@@ -409,6 +414,7 @@ export const products = [
         date: 1716639845448,
         bestseller: false
     },
+    
     {
         _id: "aaaba",
         name: "Girls Round Neck Cotton Top",
@@ -719,6 +725,55 @@ export const products = [
         sizes: ["S", "M", "L", "XL"],
         date: 1716668445448,
         bestseller: false
-    }
+    },
+
+
+    // {
+    //     _id: "aabca",
+    //     name: "Men Slim Fit Relaxed Denim Jacket",
+    //     description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    //     price: 350,
+    //     image: [p_img53],
+    //     category: "Men",
+    //     subCategory: "Winterwear",
+    //     sizes: ["S", "M", "L", "XL"],
+    //     date: 1716668445448,
+    //     bestseller: false
+    // },
+    // {
+    //     _id: "aabcb",
+    //     name: "Kid Tapered Slim Fit Trouser",
+    //     description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    //     price: 310,
+    //     image: [p_img54],
+    //     category: "Kids",
+    //     subCategory: "Bottomwear",
+    //     sizes: ["S", "M", "L", "XL"],
+    //     date: 1716665145448,
+    //     bestseller: false
+    // },
+    // {
+    //     _id: "aabcc",
+    //     name: "Kid Tapered Slim Fit Trouser",
+    //     description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    //     price: 340,
+    //     image: [p_img55],
+    //     category: "Kids",
+    //     subCategory: "Bottomwear",
+    //     sizes: ["S", "M", "L", "XL"],
+    //     date: 1716666245448, bestseller: false
+    // },
+    // {
+    //     _id: "aabcd",
+    //     name: "Women Zip-Front Relaxed Fit Jacket",
+    //     description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    //     price: 320,
+    //     image: [p_img56],
+    //     category: "Women",
+    //     subCategory: "Winterwear",
+    //     sizes: ["S", "M", "L", "XL"],
+    //     date: 1716667345448,
+    //     bestseller: false
+    // },
 
 ]

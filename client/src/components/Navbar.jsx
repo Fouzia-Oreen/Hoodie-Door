@@ -11,14 +11,7 @@ import { ShopContext } from "../context/ShopContext.jsx";
 
 export default function Navbar() {
   const [visible, setVisible] = useState(false);
-  const {setShowSearch, getCartCount} = useContext(ShopContext)
-  //const products = useSelector((state) => state.cart.products);
-  //const [isCartOpen, setIsCartOpen] = useState(false);
-
-  // cart toggle function
-  // const handleCartToggle = () => {
-  //   setIsCartOpen(!isCartOpen)
-  // }
+  const {setShowSearch, getCartCount} = useContext(ShopContext);
 
   const navlinks =[
     {link:"/", title:"Home"},
@@ -48,7 +41,7 @@ export default function Navbar() {
         <div className="flex gap-6 items-center">
           <img src={assets.search_icon} alt="search" className="size-5" onClick={() => setShowSearch(true)}/>
           <div className="group relative">
-            <img src={assets.profile_icon} alt="profile" className="size-5 cursor-pointer"/>
+            <Link to="/login"><img src={assets.profile_icon} alt="profile" className="size-5 cursor-pointer"/></Link>
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
               {/* drop-down-menu */}
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#D1CFC5] border-[1px] border-dark relative z-20">
@@ -84,10 +77,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-      {/* {
-        isCartOpen && <CartModel products={products} isOpen={isCartOpen} onClose={handleCartToggle}/>
-      } */}
-
     </>
   )
 }

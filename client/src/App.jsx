@@ -14,6 +14,7 @@ import Login from './pages/Login'
 import Orders from './pages/Orders'
 import PlaceOrders from './pages/PlaceOrders'
 import Product from './pages/Product'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
     <Route path='/login' element={<Login />} />
     <Route path='/place-order' element={<PlaceOrders />} />
     <Route path='/orders' element={<Orders />} />
+    <Route path='*' element={<NotFound />} />
    </Routes>
    <Footer />
   </div>   

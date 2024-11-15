@@ -18,7 +18,7 @@ const BestSeller = () => {
     <div className='my-10'>
       <div className="text-left text-3xl py-8">
         <Title text1={"Best"} text2={"Seller"}/>
-        <p className='w-3/4 text-sm sm:text-sm md:text-base'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolore asperiores consequuntur quis!</p>
+        <p className='w-3/4 text-sm sm:text-sm md:text-base text-text-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolore asperiores consequuntur quis!</p>
       </div>
       {/* products */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">

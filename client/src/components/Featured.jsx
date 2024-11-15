@@ -23,7 +23,7 @@ export default function Featured() {
                     <div className='hero__content lg:pr-10 '>
                         <p>{card.trend}</p>
                         <h4>{card.title}</h4>
-                        <Link href="/collection">Discover More</Link>
+                        <Link to="/collection">Discover More</Link>
                     </div>
                 </div>
             ))

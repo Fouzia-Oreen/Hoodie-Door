@@ -9,9 +9,9 @@ export default function Hero() {
             <div className='absolute -mt-[440px]'>
               <div className='flex items-center gap-2 justify-end'>
                 <p className="w-8 md:w-11 h-[2px] bg-text-dark"></p>
-                <p className=''>THE BEST HOODIES ARE ONLY HERE</p>
+                <p className='text-dark'>THE BEST HOODIES ARE ONLY HERE</p>
               </div>
-                <h1 className='text-6xl md:text-7xl font-bold lg:text-8xl'>HoodieDoor</h1>
+                <h1 className='text-6xl md:text-7xl font-bold lg:text-8xl text-dark'>HoodieDoor</h1>
             </div>
 
             <div className='relative'>

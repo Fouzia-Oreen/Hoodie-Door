@@ -6,6 +6,7 @@
   --primary-color: #FBF9F3;
   --primary-color-light: #D1CFC5;
   --primary-color-dark: #c2bea7;
+  --btn-color :#D1CFC5 ;
   --text-dark: #4b4942;
   --text-light: #787569;
   --dark: #272723;
@@ -46,15 +47,19 @@
 .btn {
   padding: 0.75rem 1.5rem;
   outline: none;
-  border: 1px solid var(--dark);
+  border: 1px solid var(--text-dark);
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
+  background-color: var(--btn-color);
+
+  font-weight: 600;
+}
+.btn:hover {
   background-color: var(--primary-color-dark);
   color: var(--dark);
-  font-weight: 500;
 }
-.btn:hover:hover,
+
 .btn__banner:hover {
   background-color: var(--accent);
   color: var(--primary-color);
@@ -70,7 +75,7 @@ a {
 body {
   font-family: "Tomorrow", serif;
   background-color: var(--primary-color);
-  color: var(--dark);
+  color: var(--text-dark);
 }
 ::-webkit-scrollbar {
   display: none;

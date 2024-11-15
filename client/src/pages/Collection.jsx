@@ -73,7 +73,7 @@ const Collection = () => {
         <div className="sm:hidden ">{showFilter ? <ChevronDown className="text-text-dark size-5 "/> : <Minus className="text-text-dark size-5"/>}</div></p>
         <div className={` pl-5 mt-5 ${showFilter ? "" : "hidden"} `}>
           <p className="mb-3 text-sm font-medium text-text-light">Catagories</p>
-        <div className="flex flex-col gap-2 text-sm text-text-dark">
+        <div className="flex flex-col gap-2 text-sm">
           <p className="flex gap-2 items-center">
             <input type="checkbox" className="size-3" value={"Men"} onChange={toggleCategory}/>Mens
           </p>
@@ -88,7 +88,7 @@ const Collection = () => {
         {/* sub-catagory filter */}
         <div className={` pl-5 mt-10 ${showFilter ? "" : "hidden"} `}>
           <p className="mb-3 text-sm font-medium text-text-light">Type</p>
-        <div className="flex flex-col gap-2 text-sm text-text-dark">
+        <div className="flex flex-col gap-2 text-sm">
           <p className="flex gap-2 items-center">
             <input type="checkbox" className="size-3" value={"Topwear"} onChange={toggleSubCategory}/>Topwear
           </p>
@@ -115,7 +115,7 @@ const Collection = () => {
         <div className="flex-1">
           <div className="flex justify-between text-base sm:text-2xl mb-4">
             {/* title */}
-            <Title text1={"All"} text2={"Collection"} />
+            <Title text1={"All"} text2={"Collection"}/>  
             {/* products sort */}
             <select 
             onChange={(e) => setSortType(e.target.value)}

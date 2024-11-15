@@ -3,26 +3,28 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { assets } from "../assets/images/assets";
+import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
-  const [cartData, setCartData] = useState([]);
+  const { products, currency, tax_fee, cartItems, updateQuantity, increaseQuantity, decreaseQuantity, navigate } = useContext(ShopContext);
+  const [cartData, setCartData] = useState([]); 
 
-    useEffect(() => {
-      const tempData = [];
-      for (const items in cartItems) {
-        for (const item in cartItems[items]) {         
-            if (cartItems[items][item] > 0) {
-              tempData.push({
-                _id : items,
-                size: item,
-                quantity: cartItems[items][item] 
-              })
-            }          
-        }       
-    } 
-    setCartData(tempData);
-    },[cartItems]);
+  useEffect(() => {
+    const tempData = [];
+    for (const items in cartItems) {
+      for (const item in cartItems[items]) {         
+          if (cartItems[items][item] > 0) {
+            tempData.push({
+              _id : items,
+              size: item,
+              quantity: cartItems[items][item] 
+            })
+          }          
+      }       
+  } 
+  setCartData(tempData);
+  },[cartItems]);
+
 
   return (
     <div className="section_container pt-14">
@@ -45,20 +47,33 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <input 
-                type="number"
-                onChange={(e) => e.target.value == "" || e.target.value == '0' ? null : updateQuantity(item._id,item.size,Number(e.target.value))}
-                className="border border-text-light max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 font-medium outline-none cursor-pointer" 
-                min={1} defaultValue={item.quantity}/>
+                {/* increment & decrement */}
+                <div className="flex gap-2 items-center">
+                  <button className="size-5 p-1 rounded-full bg-primary-light hover:bg-accent font-bold flex items-center justify-center"
+                  onClick={()=> increaseQuantity(item._id,item.size,item.quantity)}
+                  >+</button>
+                  <span 
+                  onChange={(e) => e.target.value == "" || e.target.value == '0' ? null : updateQuantity(item._id,item.size, Number(e.target.value))}>{item.quantity}</span>
+                  <button
+                  onClick={()=> decreaseQuantity(item._id,item.size,item.quantity)} 
+                  className="size-5 p-1 rounded-full bg-primary-light hover:bg-accent font-bold flex items-center justify-center">-</button>
+                </div>           
                 <img 
                 src={assets.bin_icon} alt="bin" 
                 className="size-5 cursor-pointer mr-4" 
                 onClick={() => updateQuantity(item._id, item.size, 0)}/>
               </div>
-
             )
           })
         }
+      </div>
+      <div className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartTotal />
+          <div className="w-full text-end mt-8">
+            <button onClick={() => navigate('/place-order')} className="btn">Proceed to checkout</button>
+          </div>
+        </div>
       </div>
     </div>
   )

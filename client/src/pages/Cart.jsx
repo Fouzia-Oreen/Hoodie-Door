@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
-import Title from "../components/Title";
+import { toast } from "react-toastify";
 import { assets } from "../assets/images/assets";
 import CartTotal from "../components/CartTotal";
+import Title from "../components/Title";
+import { ShopContext } from "../context/ShopContext";
 
 const Cart = () => {
   const { products, currency, tax_fee, cartItems, updateQuantity, increaseQuantity, decreaseQuantity, navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]); 
+
 
   useEffect(() => {
     const tempData = [];
@@ -25,6 +27,13 @@ const Cart = () => {
   setCartData(tempData);
   },[cartItems]);
 
+  const handleCheckout = () => {
+    if (cartData.length > 0) {
+      navigate('/place-order')
+    } else {
+      toast.error("Your cart is empty")
+    }
+  }
 
   return (
     <div className="section_container pt-14">
@@ -71,7 +80,9 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal />
           <div className="w-full text-end mt-8">
-            <button onClick={() => navigate('/place-order')} className="btn">Proceed to checkout</button>
+            <button 
+            onClick={() => handleCheckout()} 
+            className="btn">Proceed to checkout</button>
           </div>
         </div>
       </div>

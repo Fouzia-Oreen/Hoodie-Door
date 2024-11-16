@@ -9,6 +9,14 @@ const PlaceOrders = () => {
   const [method, setMethod] = useState('cod')
   const {navigate} = useContext(ShopContext);
 
+  // const handlePlaceOrder = () => {
+  //   if (cartData.length > 0) {
+  //     navigate('/orders')
+  //   } else {
+  //     toast.error("Your cart is empty")
+  //   }
+  // }
+
   return (
     <div className="flex flex-col sm:flex-row  gap-4 pt-5 sm:pt-14 min-h-[80vh] justify-evenly">
       {/* left side */}

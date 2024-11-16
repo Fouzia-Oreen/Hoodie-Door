@@ -1,16 +1,15 @@
  
 /* eslint-disable no-unused-vars */
 import { useState } from 'react'
-import productData from '../../../data/product-data.json'
-import ProductsCards from './ProductsCards'
+import { products } from '../../../assets/images/assets'
 
 const SearchProductContainer = () => {
    const [searchQuery, setSearchQuery] = useState('')
   //  filter products
-   const [filteredProducts, setFilteredProducts] = useState(productData)
+   const [filteredProducts, setFilteredProducts] = useState(products)
    const handleSearch = () => {
     const query = searchQuery.toLowerCase();
-    const filtered = productData.filter((product)=> product.name.toLowerCase().includes(query) || product.category.toLowerCase().includes(query));
+    const filtered = products.filter((product)=> product.name.toLowerCase().includes(query) || product.category.toLowerCase().includes(query));
     setFilteredProducts(filtered)
    }
   return (
@@ -28,7 +27,8 @@ const SearchProductContainer = () => {
        onClick={handleSearch}
        >Search</button>
       </div>
-      <ProductsCards products={filteredProducts}/>
+      {/* <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} />
+      <ProductsCards products={filteredProducts}/> */}
     </section>
     </>
   )

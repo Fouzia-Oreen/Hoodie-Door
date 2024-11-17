@@ -1,15 +1,18 @@
-import { assets } from "../assets/assets";
+/* eslint-disable react/prop-types */
+import logo from '../assets/logo.png'
 
-
-
-export default function Navbar() {
-    <>
-    <div>
-        <img className="w-[max(10%,80px)]" src={assets.logo} alt="logo" />
-        <button className="btn">Logout</button>
+const Navbar = ({setToken}) => {
+  return (
+    <div className=' flex justify-between items-center py-5 px-[4%] border-b-[1px] border-text-dark'>
+    <div className='flex items-baseline gap-4 w-[max(20%,80px)]'>
+     <img className='size-8' src={logo} alt="" />
+     <h1 className='text-3xl font-semibold text-dark'>HoodieDoor</h1> 
     </div>
-    </>
- 
+    <button className='btn' onClick={() => setToken('')}>Logout</button>
+    </div>
+
+
+  )
 }
 
-
+export default Navbar

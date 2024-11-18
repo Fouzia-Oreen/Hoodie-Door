@@ -1,10 +1,14 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-import { useState } from 'react'
-import upload from '../assets/upload_area.png'
+/* eslint-disable react/prop-types */
+ 
+ 
+import axios from 'axios';
+import { useState } from 'react';
 import { backendUrl } from '../App';
+import upload from '../assets/upload_area.png';
+import { toast } from 'react-toastify';
 
-const AddProducts = () => {
+
+const AddProducts = ({token}) => {
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
@@ -36,16 +40,32 @@ const AddProducts = () => {
       image3 && formData.append("image3", image3)
       image4 && formData.append("image4", image4)
 
-      const response = await axios.post(backendUrl+"/api/product/add", formData)
-      console.log(response)
-
+      const response = await axios.post(backendUrl + "/api/product/add", formData, {headers:{token}})
+      if (response.data.success) {
+        toast.success(response.data.success)
+        setName('')
+        setDescription('')
+        setPrice('')
+        setCategory('')
+        setSubCategory('')
+        setBestseller('')
+        setSizes('')
+        setImage1(false)
+        setImage2(false)
+        setImage3(false)
+        setImage4(false)
+      }else {
+        toast.error(response.data.message)
+      }
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      toast.error(error.message)
     }
  }
 
   return (
     <form className='flex flex-col w-full items-start gap-4' onSubmit={onSubmitHandler}>
+      {/* product - image */}
       <div>
         <p className='mb-3 text-lg '>Upload Image</p>
         <div className='flex gap-3'>
@@ -72,7 +92,7 @@ const AddProducts = () => {
           </label>
         </div>
       </div>
-      {/* product - description */}
+      {/* product - title */}
       <div className='w-full'>
         <p className='mb-3 text-lg '>Product Name</p>
         <input 
@@ -83,6 +103,7 @@ const AddProducts = () => {
         placeholder='Enter product name...' 
         className='w-full max-w-[500px] px-3 py-2'/>
       </div>
+      {/* product - description */}
       <div className='w-full'>
         <p className='mb-3 text-lg '>Product Description</p>
         <textarea 
@@ -93,7 +114,9 @@ const AddProducts = () => {
         placeholder='Enter product description...' 
         className='w-full max-w-[500px] px-3 py-2'/>
       </div>
-      <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8 '>
+
+    <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8 '>
+      {/* product - category */}
       <div>
         <p className='mb-3 text-lg'>Product Category</p>
         <select onChange={(e) => setCategory(e.target.value)} 
@@ -103,6 +126,7 @@ const AddProducts = () => {
           <option value="Kids">Kids</option>
         </select>
       </div>
+      {/* product - subcategory */}
       <div>
         <p className='mb-3 text-lg'>Product Subcategory</p>
         <select onChange={(e) => setSubCategory(e.target.value)} className='w-full px-3 py-2'>
@@ -111,6 +135,7 @@ const AddProducts = () => {
           <option value="Winterwear">Winterwear</option>
         </select>
       </div>
+      {/* product price */}
       <div>
         <p className='mb-3 text-lg'>Product Price</p>
         <input 
@@ -120,29 +145,31 @@ const AddProducts = () => {
         value={price}
         onChange={(e) => setPrice(e.target.value)}/>
       </div>
-      </div>
+    </div>
+
+      {/* product sizes */}
       <div>
       <p className='text-lg mb-2'>Product Sizes</p>
       <div className='flex gap-3'>
-        <div 
-        onClick={() => setSizes(prev => prev.includes("S")) ? prev.filter( item => item != "S") : [...prev, "S"]}>
-          <p className={`${sizes.includes("S") ? "bg-primary-dark" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>S</p>
+        <div onClick={()=>setSizes(prev => prev.includes("S") ? prev.filter( item => item != "S") : [...prev, "S"])}>
+          <p className={`${sizes.includes("S") ? "bg-accent" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>S</p>
         </div>
-        <div 
-        onClick={() => setSizes(prev => prev.includes("M")) ? prev.filter( item => item != "M") : [...prev, "M"]}>
-          <p className={`${sizes.includes("M") ? "bg-primary-dark" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>M</p>
+        <div onClick={() => setSizes(prev => prev.includes("M") ? prev.filter( item => item != "M") : [...prev, "M"])}>
+          <p className={`${sizes.includes("M") ? "bg-accent" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>M</p>
         </div>          
-        <div onClick={() => setSizes(prev => prev.includes("L")) ? prev.filter( item => item != "L") : [...prev, "L"]}>
-          <p className={`${sizes.includes("L") ? "bg-primary-dark" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>L</p>
+        <div onClick={() => setSizes(prev => prev.includes("L") ? prev.filter( item => item != "L") : [...prev, "L"])}>
+          <p className={`${sizes.includes("L") ? "bg-accent" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>L</p>
         </div>          
-        <div onClick={() => setSizes(prev => prev.includes("XL")) ? prev.filter( item => item != "XL") : [...prev, "XL"]}>
-          <p className={`${sizes.includes("XL") ? "bg-primary-dark" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>XL</p>
+        <div onClick={() => setSizes(prev => prev.includes("XL") ? prev.filter( item => item != "XL") : [...prev, "XL"])}>
+          <p className={`${sizes.includes("XL") ? "bg-accent" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>XL</p>
         </div>          
-        <div onClick={() => setSizes(prev => prev.includes("XXL")) ? prev.filter( item => item != "XXL") : [...prev, "XXL"]}>
-          <p className={`${sizes.includes("XXL") ? "bg-primary-dark" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>XXL</p>
+        <div onClick={() => setSizes(prev => prev.includes("XXL") ? prev.filter( item => item != "XXL") : [...prev, "XXL"])}>
+          <p className={`${sizes.includes("XXL") ? "bg-accent" : "bg-primary-light"} font-medium px-3 py-1 cursor-pointer`}>XXL</p>
         </div>
       </div>
       </div>
+
+      {/* best seller check box */}
       <div className='flex gap-2 mt-2 items-center'>
         <input 
         type="checkbox" 

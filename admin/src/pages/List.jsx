@@ -2,7 +2,7 @@
 const List = () => {
   return (
     <div>
-      hfjgghj
+      
     </div>
   )
 }

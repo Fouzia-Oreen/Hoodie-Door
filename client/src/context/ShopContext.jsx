@@ -1,15 +1,18 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
-import { products } from '../assets/images/assets.js';
+// import { products } from '../assets/images/assets.js';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
     const currency = '$';
     const delivery_fee = 10;
     const tax_fee = 3;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const [products, setProducts] = useState([]);
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
@@ -80,7 +83,23 @@ const ShopContextProvider = (props) => {
         }
         return totalAmount;
     };
-
+    const getProductsData = async () => {
+        try {
+            const response = await axios.get(backendUrl + "/api/product/list")
+            if(response.data.success) {
+                setProducts(response.data.products)
+            }else {
+                toast.error(response.error.mesage)
+            }
+        } catch (error) {
+            console.error(error)
+            toast.error(error.mesage)
+        }
+    }
+    useEffect(() => {
+        getProductsData()
+    },[])
+    
     const value = {
         products, 
         currency, 
@@ -97,7 +116,8 @@ const ShopContextProvider = (props) => {
         increaseQuantity,
         decreaseQuantity,
         getCartAmmount,
-        navigate
+        navigate,
+        backendUrl
     }
     return (
         <ShopContext.Provider value={value}>

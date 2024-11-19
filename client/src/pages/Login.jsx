@@ -24,7 +24,7 @@ const Login = () => {
     <section className="h-screen flex items-center justify-center ">
       <div className="border-[1px] border-text-light  p-8 mx-auto rounded-sm bg-[#D1CFC5]">
         <div className="inline-flex items-center gap-2">
-        <h2 className="text-2xl font-semibold pt-5 text-text-dark">Please {currentState}</h2>
+        <h2 className="text-2xl font-semibold pt-5">Please {currentState}</h2>
         <hr className="h-[3px] w-12 bg-text-dark mt-6"/>
         </div>
 
@@ -35,7 +35,7 @@ const Login = () => {
           {/* name */}
             { currentState === 'Login' ? "" : 
             <>
-            <label htmlFor="" className="font-medium text-text-dark">Name</label>
+            <label className="font-medium">Name</label>
             <input 
             required
             type="text" 
@@ -46,7 +46,7 @@ const Login = () => {
             className="border-[1px] border-text-light py-2 px-3 rounded-sm outline-none focus:none placeholder:opacity-40 placeholder:text-text-dark bg-[#D1CFC5]" />
             </>}
           {/* email */}
-            <label className="font-medium text-text-dark">Email</label>
+            <label className="font-medium ">Email</label>
             <input 
             required
             type="email" 
@@ -57,7 +57,7 @@ const Login = () => {
             className="border-[1px] border-text-light py-2 px-3 rounded-sm outline-none focus:none placeholder:opacity-40 placeholder:text-text-dark bg-[#D1CFC5]" />
 
           {/* password */}
-            <label className="font-medium text-text-dark">Password</label>
+            <label className="font-medium ">Password</label>
             <input 
             type="password" 
             id="password" 

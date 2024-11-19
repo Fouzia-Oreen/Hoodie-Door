@@ -1,8 +1,7 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { assets } from "../assets/images/assets"
 import CartTotal from "../components/CartTotal"
 import Title from "../components/Title"
-import { useContext } from "react"
 import { ShopContext } from "../context/ShopContext"
 
 const PlaceOrders = () => {

@@ -42,23 +42,23 @@ const AddProducts = ({token}) => {
 
       const response = await axios.post(backendUrl + "/api/product/add", formData, {headers:{token}})
       if (response.data.success) {
-        toast.success(response.data.success)
-        setName('')
-        setDescription('')
-        setPrice('')
-        setCategory('')
-        setSubCategory('')
-        setBestseller('')
-        setSizes('')
-        setImage1(false)
-        setImage2(false)
-        setImage3(false)
-        setImage4(false)
+        toast.success(response.data.message)
+          setName('')
+          setDescription('')
+          setPrice('')
+          setCategory('')
+          setSubCategory('')
+          setBestseller('')
+          setSizes('')
+          setImage1(false)
+          setImage2(false)
+          setImage3(false)
+          setImage4(false)
       }else {
         toast.error(response.data.message)
       }
     } catch (error) {
-      console.error(error)
+      console.log(error)
       toast.error(error.message)
     }
  }

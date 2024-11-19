@@ -33,10 +33,12 @@ const Profile = () => {
   return (
 
     <form className="flex flex-col w-full gap-4 " onSubmit={onSubmitHandler}>
+      {/* profile - image */}
       <label className=' w-full' htmlFor='profile'>
         <img src={!image ? profile : URL.createObjectURL(image)}  alt="profile" className='rounded-full border-4 border-primary-dark outline-none max-w-[300px] h-[300px] object-contain'/>
         <input onChange={(e) => setImage(e.target.files[0])}  type="file" id="profile" hidden/>
       </label>
+      {/* name */}
       <div className='w-full'>
         <p className="pl-2 mb-1">Name</p>
         <input 
@@ -46,6 +48,7 @@ const Profile = () => {
         placeholder="Enter your name" 
         className="px-3 py-2 placeholder:text-text-light placeholder:opacity-65 w-full max-w-[500px] "/>
       </div>
+      {/* email */}
       <div className='w-full'>
         <p className="pl-2 mb-1">Email</p>
         <input 
@@ -55,6 +58,7 @@ const Profile = () => {
         onChange={(e) => setEmail(e.target.value)}
         className="px-3 py-2 placeholder:text-text-light placeholder:opacity-65 w-full max-w-[500px] "/>
       </div>
+      {/* Date - Of - Birth */}
       <div className='w-full'>
         <p className="pl-2 mb-1">Date-Of-Birth</p>
         <input 
@@ -64,6 +68,7 @@ const Profile = () => {
         placeholder="Enter your DOB" 
         className="px-3 py-2 placeholder:text-text-light placeholder:opacity-65   w-full max-w-[500px] "/>
       </div>
+      {/* Proffession */}
       <div className='w-full'>
         <p className="pl-2 mb-1">Profession</p>
         <input 
@@ -73,6 +78,7 @@ const Profile = () => {
         placeholder="Enter your profession" 
         className="px-3 py-2 placeholder:text-text-light placeholder:opacity-65 w-full max-w-[500px] "/>
       </div>
+      {/* Bio */}
       <div className='w-full'>
         <p className="pl-2 mb-1">Bio</p>
         <textarea 
@@ -82,6 +88,7 @@ const Profile = () => {
         placeholder="Enter your bio" 
         className="px-3 py-2 placeholder:text-text-light placeholder:opacity-65 w-full max-w-[500px] "/>
       </div>
+      <button className='py-2 px-4 mt-4 bg-dark text-white rounded-sm w-fit'>Save</button>
     </form>
   )
 }

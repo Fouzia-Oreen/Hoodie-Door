@@ -4,8 +4,8 @@ const ProductSchema = new mongoose.Schema({
     name : { type: String,  required : true  },
     description : { type: String, required : true },
     price : { type: Number, required : true },
-    oldPrice : { type: Number},
-    color : { type: Array },
+    oldPrice : { type: Number , required : true},
+    colors : { type: Array },
     rating : { type: Number, default: 0 },    
     image : { type: Array, required : true },
     category : { type: String, required : true },
@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
     sizes : { type: Array},
     date : { type: Number, required : true },
     bestseller : { type: Boolean },
-    // author: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}
+    onSale : { type: Boolean },
 });
 
 const productModels = mongoose.models.product || mongoose.model("Product", ProductSchema)

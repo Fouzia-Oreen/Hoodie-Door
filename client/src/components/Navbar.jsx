@@ -10,8 +10,15 @@ import { ShopContext } from "../context/ShopContext.jsx";
 
 
 export default function Navbar() {
-  const [visible, setVisible] = useState(false);
-  const {setShowSearch, getCartCount} = useContext(ShopContext);
+    const [visible, setVisible] = useState(false);
+    const {setShowSearch, getCartCount, navigate, token, setToken, setCartItems} = useContext(ShopContext);
+
+    const logout = () => {
+      navigate('/login')
+      localStorage.removeItem('token');
+      setToken('')
+      setCartItems({})
+    }
 
   const navlinks =[
     {link:"/", title:"Home"},
@@ -32,25 +39,26 @@ export default function Navbar() {
             </NavLink>
             ))
           }
-          {/* <ShopDropDownMenu /> */}
         </ul>
         {/* logo */}
         <Link to="/">
-        <img src={assets.logo} alt="logo" className='size-[44px] '/>
+        <img  src={assets.logo} alt="logo" className='size-[44px] '/>
         </Link>
+
         <div className="flex gap-6 items-center">
           <img src={assets.search_icon} alt="search" className="size-5" onClick={() => setShowSearch(true)}/>
           <div className="group relative">
-            <Link to="/login"><img src={assets.profile_icon} alt="profile" className="size-5 cursor-pointer"/></Link>
+            <img src={assets.profile_icon} alt="profile" className="size-5 cursor-pointer" onClick={() => token ? null : navigate('/login')}/>
+            {/* drop-down-menu */}
+            { token &&  
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
-              {/* drop-down-menu */}
-              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#D1CFC5] border-[1px] border-dark relative z-20">
-                <p className="cursor-pointer hover:text-dark">My Profile</p>
-                <p className="cursor-pointer hover:text-dark">Orders</p>
-                <p className="cursor-pointer hover:text-dark">Logout</p>
-                {/* <DropdownProfile />  */}
-              </div>
+                <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#D1CFC5] border-[1px] border-dark relative z-20">
+                <p onClick={()=>navigate('/profile')} className="cursor-pointer hover:text-dark">My Profile</p>
+                <p onClick={()=>navigate('/orders')} className="cursor-pointer hover:text-dark">Orders</p>
+                <p onClick={logout} className="cursor-pointer hover:text-dark">Logout</p>
+              </div>             
             </div>
+            }
           </div>
           <Link to="/cart" className="relative">
               <img src={cart} alt="" className="size-5"/>

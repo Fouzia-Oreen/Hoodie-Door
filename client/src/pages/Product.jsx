@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { assets } from '../assets/images/assets'
+import { Dot } from 'lucide-react';
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ShopContext } from "../context/ShopContext";
-import { Dot } from 'lucide-react';
+import { assets } from '../assets/images/assets';
 import RelatedProducts from '../components/RelatedProducts';
+import { ShopContext } from "../context/ShopContext";
 
 
 const Product = () => {
@@ -14,8 +14,10 @@ const Product = () => {
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
-
-
+  const [colors, setColors] = useState('');
+ 
+   
+  
   const filterProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
@@ -29,8 +31,6 @@ const Product = () => {
     filterProductData()
   }, [productId])
   
-
-
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       {/* product Data */}
@@ -49,23 +49,42 @@ const Product = () => {
             ))
           }
         </div>
-        <div className="w-full sm:w-[80%] cursor-pointer">
+        <div className="w-[70%] sm:w-[80%] cursor-pointer">
           <img src={image} alt="image" className="w-full h-auto p-2 border-[1px] border-text-light border-opacity-30"/>
         </div>
       </div>
       {/* product info */}
       <div className="flex-1">
+      <div className=' flex items-center justify-between'>
+        <div>
         <h1 className="font-medium text-2xl mt-2 text-text-dark">{productData.name}</h1>
+        <p className='mt-5 text-text-light md:w-4/5'>{productData.description}</p>
+        </div>
+        <div className='bg-accent px-2 text-white'>
+            {productData.onsale ? <p>OnSale</p> : ""}
+        </div>
+      
+      </div>
+
+        {/* re rendered */}
         <div className="flex items-center gap-1 mt-2">
           <img src={assets.star_icon} alt="" className="size-3"/>
           <img src={assets.star_icon} alt="" className="size-3"/>
           <img src={assets.star_icon} alt="" className="size-3"/>
           <img src={assets.star_icon} alt="" className="size-3"/>
           <img src={assets.star_dull_icon} alt="" className="size-3"/>
-          <p className='pl-2'>(122)</p>
+          <p className='pl-2'>({ productData.rating}) </p>
         </div>
-        <p className='mt-5 text-3xl font-medium text-text-dark'>{currency}{productData.price}</p>
-        <p className='mt-5 text-text-light md:w-4/5'>{productData.description}</p>
+       
+         
+
+
+        {/* price */}
+        <div className='flex items-baseline gap-4 mt-5'>
+        <p className=' text-3xl font-medium text-text-dark'>{currency}{productData.price}</p>
+        <p className='text-text-light'><del>{currency}{productData.oldPrice}</del></p>
+        </div>
+
         <div className="flex flex-col gap-4 my-8">
           <p>Select Size</p>
           <div className="flex gap-2">
@@ -73,10 +92,24 @@ const Product = () => {
               productData.sizes.map((item, index) => (
                 <button 
                 onClick={()=> setSize(item)}
-                className={`border-[3px] border-primary-dark p-2 size-12 bg-[#D1CFC5] rounded-full font-medium text-text-dark ${item === size ? "border-[#4b4942]" : ""}`} key={index}>{item}</button>
+                className={`border-[3px] border-primary-dark  size-9 flex items-center justify-center bg-[#D1CFC5] rounded-full font-medium text-sm ${item === size ? "border-accent border-[3px]" : "border-none"}`} key={index}>{item}</button>
               ))
             }
-          </div>
+          </div>  
+        </div>
+        <div className="flex flex-col gap-4 my-8">
+          <p>Select Color</p>
+          <div className="flex gap-2">
+            {
+              productData.colors.map((item) => (<>
+                <button 
+                onClick={()=> setColors(item)} key={item}
+                 className={`${colors.includes(item) ? "border-[3px]" : "bg-primary-light"} flex items-center justify-center size-6 mr-2 rounded-full  cursor-pointer border-[1px] border-text-dark`} style={{backgroundColor : item}}>
+                </button>
+               </>
+              ))
+            }
+          </div>  
         </div>
         <button onClick={() => addToCart(productData._id, size)}
         className='btn active:bg-accent'>ADD TO CART</button>

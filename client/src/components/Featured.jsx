@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
-import card_1 from '../assets/card_1.png';
-import card_2 from '../assets/card_2.png';
-import card_3 from '../assets/card_3.png';
+import { assets } from '../assets/images/assets';
 
 const featuredCards = [
-    {id: 1, image: card_1, title:"Mens Hoodie", trend:'2025 Trend'},
-    {id: 2, image: card_2, title:"Womens Hoodie", trend:'2025 Trend'},
-    {id: 3, image: card_3, title:"Uni-Sex Hoodie", trend:'2025 Trend'}
-
+    {id: 1, image: assets.card_1, title:"Mens Hoodie", trend:'2025 Trend'},
+    {id: 2, image: assets.card_2, title:"Womens Hoodie", trend:'2025 Trend'},
+    {id: 3, image: assets.card_3, title:"Uni-Sex Hoodie", trend:'2025 Trend'}
 ]
 
 export default function Featured() {

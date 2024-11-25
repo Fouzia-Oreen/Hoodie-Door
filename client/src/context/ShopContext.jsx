@@ -1,8 +1,9 @@
-/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-refresh/only-export-components */
+
 import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
-// import { products } from '../assets/images/assets.js';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
@@ -16,15 +17,16 @@ const ShopContextProvider = (props) => {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
+    const [token, setToken] = useState('')
     const navigate = useNavigate();
 
     /* cart functions */
     const addToCart = async (itemId, size) => {
         if (!size) {
             toast.error("Select Product Size")
-            return
+            return 
         }
-        let cartData = structuredClone(cartItems);
+        let cartData = structuredClone(cartItems)
         if (cartData[itemId]) {
             if (cartData[itemId][size]) {
                 cartData[itemId][size] += 1
@@ -36,7 +38,15 @@ const ShopContextProvider = (props) => {
             cartData[itemId] = {}
             cartData[itemId][size] = 1
         }
-        setCartItems(cartData)
+        setCartItems(cartData);
+        if (token) {
+            try {
+                await axios.post(backendUrl + '/api/cart/add-cart', {size, itemId}, {headers: {token}})
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+        }
     };
     const getCartCount = () => {
         let totalCount = 0;
@@ -56,6 +66,14 @@ const ShopContextProvider = (props) => {
         let cartData = structuredClone(cartItems);
         cartData[itemId][size] = quantity;
         setCartItems(cartData)
+        if (token) {
+            try {
+                await axios.post(backendUrl + '/api/cart/update-cart', {itemId, size, quantity},{headers:{token}})
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+        }
     };
     const increaseQuantity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems);
@@ -96,9 +114,28 @@ const ShopContextProvider = (props) => {
             toast.error(error.mesage)
         }
     }
+    const getUserCart = async (token) => {
+        try {
+          const response =  await axios.post(backendUrl + '/api/cart/get-cart',{}, {headers: {token}})
+          if (response.data.success) {
+            setCartItems(response.data.cartData)
+          }
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
+    }
     useEffect(() => {
         getProductsData()
     },[])
+
+    useEffect(() => {
+    if (!token && localStorage.getItem('token')) {
+        setToken(localStorage.getItem('token'))
+        getUserCart(localStorage.getItem('token'))
+    }
+    },[])
+    
     
     const value = {
         products, 
@@ -117,7 +154,9 @@ const ShopContextProvider = (props) => {
         decreaseQuantity,
         getCartAmmount,
         navigate,
-        backendUrl
+        backendUrl,
+        token, 
+        setToken
     }
     return (
         <ShopContext.Provider value={value}>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import profile from '../assets/avatar.png';
-// import axios from 'axios';
-// import { backendUrl } from '../App';
+ import axios from 'axios';
+ import { backendUrl } from '../App';
 
 const Profile = () => {
   const [image, setImage] = useState(false);
@@ -22,8 +22,8 @@ const Profile = () => {
       formData.append("profession", profession)
       formData.append("bio", bio)
 
-      // const response = await axios.post(backendUrl+"/api/product/add", formData)
-      // console.log(response)
+      const response = await axios.post(backendUrl+"/api/product/profile", formData)
+      console.log(response)
 
     } catch (error) {
       console.log(error)

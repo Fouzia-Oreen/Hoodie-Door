@@ -13,7 +13,7 @@ const OurPolicy = () => {
       {
         policyData.map((item) => (
           <>
-          <Link to="/contact" className="banner__card">
+          <Link to="/contact" className="banner__card" key={item}>
             <span>{item.icon}</span>
             <h4>{item.title}</h4>
             <p>{item.desc}</p>

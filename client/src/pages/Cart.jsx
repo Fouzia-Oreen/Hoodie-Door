@@ -7,25 +7,27 @@ import Title from "../components/Title";
 import { ShopContext } from "../context/ShopContext";
 
 const Cart = () => {
-  const { products, currency, tax_fee, cartItems, updateQuantity, increaseQuantity, decreaseQuantity, navigate } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, increaseQuantity, decreaseQuantity, navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]); 
-
-
+  
   useEffect(() => {
-    const tempData = [];
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {         
-          if (cartItems[items][item] > 0) {
-            tempData.push({
-              _id : items,
-              size: item,
-              quantity: cartItems[items][item] 
-            })
-          }          
-      }       
-  } 
-  setCartData(tempData);
-  },[cartItems]);
+    if (products.length > 0) {     
+      const tempData = [];
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {         
+            if (cartItems[items][item] > 0) {
+              tempData.push({
+                _id : items,
+                size: item,
+                color: item,
+                quantity: cartItems[items][item] 
+              })
+            }          
+        }       
+      } 
+      setCartData(tempData);
+    }
+  },[cartItems,products]);
 
   const handleCheckout = () => {
     if (cartData.length > 0) {
@@ -52,18 +54,22 @@ const Cart = () => {
                     <p className="sm:text-lg text-sm font-medium">{productData.name}</p>
                     <div className="flex items-center gap-5 mt-2">
                       <p>{currency}{productData.price}</p>
-                      <p className="size-9 flex justify-center items-center bg-primary-light rounded-full font-medium">{item.size}</p>
+                      <p className="size-8 flex justify-center items-center bg-primary-light rounded-full font-medium text-sm">{item.size}</p>
+                      {/* <p className="size-7 flex justify-center items-center border-2 border-dark rounded-full " 
+                      style={{backgroundColor:item}}></p> */}
                     </div>
                   </div>
                 </div>
-                {/* increment & decrement */}
+                {/* increment */}
                 <div className="flex gap-2 items-center">
                   <button className="size-5 p-1 rounded-full bg-primary-light hover:bg-accent font-bold flex items-center justify-center"
                   onClick={()=> increaseQuantity(item._id,item.size,item.quantity)}
                   >+</button>
+                  {/* total */}
                   <span 
                   onChange={(e) => e.target.value == "" || e.target.value == '0' ? null : updateQuantity(item._id,item.size, Number(e.target.value))}>{item.quantity}</span>
-                  <button
+                {/* decrement */}
+                  <button            
                   onClick={()=> decreaseQuantity(item._id,item.size,item.quantity)} 
                   className="size-5 p-1 rounded-full bg-primary-light hover:bg-accent font-bold flex items-center justify-center">-</button>
                 </div>           

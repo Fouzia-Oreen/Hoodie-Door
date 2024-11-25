@@ -7,7 +7,7 @@ const Orders = () => {
   return (
     <div className="pt-16">
       <div className="text-2xl my-3">
-        <Title text1={"My"} text2={"Ordres"} />
+        <Title text1={"My"} text2={"Orders"} />
       </div>
       <div>
         {
@@ -21,6 +21,7 @@ const Orders = () => {
                                 <p className="text-lg font-medium">{currency}{item.price}</p>
                                 <p>Quantity : 1</p>
                                 <p>Size : M</p>
+                                <p>Color : Red</p>
                             </div>
                             <p className="mt-2">Date : <span>20, Jul, 2024</span></p>
                         </div>

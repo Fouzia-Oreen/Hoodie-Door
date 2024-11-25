@@ -1,9 +1,9 @@
 import express from 'express';
-import { addAdminProfile, updateProfile } from '../controllers/adminController.js';
+import { addAdminProfile, updateAdminProfile } from '../controllers/adminController.js';
 const adminRouter = express.Router()
 
 /* user routes endpoints */
 adminRouter.post('/profile', addAdminProfile );
-adminRouter.post('/update-profile', updateProfile );
+adminRouter.put('/update-profile', updateAdminProfile );
 
 export default adminRouter

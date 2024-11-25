@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react"
+import { useEffect, useState, } from "react"
 import { backendUrl, currency } from "../App";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FilePenLine, Trash2 } from 'lucide-react';
+import {useNavigate} from 'react-router-dom'
 
 const List = ({token}) => {
   const [list, setList] = useState([]);
+  const navigate = useNavigate()
   // fetch or get the product from product list
   const fetchList = async () => {
     try {
@@ -39,9 +41,11 @@ const List = ({token}) => {
   const updateProducts = async (id) => {
     try {
       const response = await axios.post(backendUrl + "/api/product/update", {id}, {headers:{token}})
+      navigate('/api/product/add')
+      console.log(response)
       if (response.data.success) {
         toast.success(response.data.message)
-        await fetchList()
+        
       }else {
         toast.error(response.data.message)
       }
@@ -79,7 +83,6 @@ const List = ({token}) => {
               <p onClick={()=> updateProducts(item._id)} className="text-right md:text-center cursor-pointer bg-blue-200 text-teal-500 w-fit p-1.5 rounded-full "><FilePenLine className="size-5"/></p>
               <p onClick={()=> removeProducts(item._id)} className="text-right md:text-center cursor-pointer bg-red-200 text-red-500 w-fit p-1.5 rounded-full "><Trash2 className="size-5"/></p>
               </div>
-
             </div>
           ))
         }

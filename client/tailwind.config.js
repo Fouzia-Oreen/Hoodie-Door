@@ -12,7 +12,7 @@ export default {
         'custom-900': '900px', 
       },
       fontFamily : {
-        'myFont': "" 
+        'myFont': "Tomorrow, serif" 
       },
       colors: {
         'primary': '#FBF9F3',

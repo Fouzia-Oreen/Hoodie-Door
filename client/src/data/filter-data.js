@@ -1,18 +1,7 @@
-export  const filterData = [
-    { 
-      label : "Dashboard", 
-      path : "/dashboard/admin"
-    },
-    {
-      label : "Manage Items", 
-      path : "/dashboard/manage-products"
-    },
-    {
-      label : "All Orders", 
-      path : "/dashboard/manage-orders"
-    },
-    {
-      label : "Orders", 
-      path : "/dashboard/orders"
-    },
-];
+/* eslint-disable no-undef */
+export const category = {
+    Men, Women, Unisex, Accessories
+}
+export const subCategory = {
+    Beanie, Cardigan, Earmuffs, Gloves, Hoodie, LeatherJacket, Mitten, Poncho, Scarf, Scocks, Shawl, SweatShirt, Sweater, Turtleneck,
+}

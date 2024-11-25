@@ -1,10 +1,10 @@
-import deal from '../assets/deal2.png'
+import { assets } from '../assets/images/assets'
 
 const Deals = () => {
   return (
     <div className='deals__container'>
       <div className='deals__image'>
-        <img src={deal} alt="deal-img" />
+        <img src={assets.deal} alt="deal-img" />
       </div>
       <div className="deals__content">
         <h5>Get Up To 20% Discount</h5>

@@ -17,7 +17,7 @@ export default function RelatedProducts({category, subCategory}) {
         productsCopy = productsCopy.filter((item) => subCategory === item.subCategory);
         setRelatedProduct(productsCopy.slice(0, 5))
       }
-    }, [products])
+    },[products])
     
 
   return (

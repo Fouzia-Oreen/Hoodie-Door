@@ -12,6 +12,10 @@ const Collection = () => {
     const [category, setCategory] = useState([]);
     const [subCategory, setSubCategory] = useState([]);
     const [sortType, setSortType] = useState('relevant');
+    // const [visibleProducts, setVisibleProducts] = useState(8)
+    // const loadingMoreProducts = () => {
+    //     setVisibleProducts(prevCount => prevCount + 4)
+    // }
 
     const toggleCategory = (e) => {
       if (category.includes(e.target.value)) {
@@ -62,6 +66,7 @@ const Collection = () => {
     useEffect(() => {
       sortProduct()
     }, [sortType]);
+
 
 
   return (
@@ -128,6 +133,11 @@ const Collection = () => {
             <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} /> ))
           }
           </div>
+          {/* <div >
+        {
+            visibleProducts < products.length && (<button className="btn" onClick={loadingMoreProducts}>Load More</button>)
+        }
+      </div> */}
         </div>
     </div>
   )

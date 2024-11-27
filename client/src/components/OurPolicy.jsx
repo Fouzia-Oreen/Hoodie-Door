@@ -11,9 +11,9 @@ const OurPolicy = () => {
   return (
     <section className="section__container banner__container">
       {
-        policyData.map((item) => (
+        policyData.map((item, index) => (
           <>
-          <Link to="/contact" className="banner__card" key={item}>
+          <Link to="/contact" className="banner__card" key={index}>
             <span>{item.icon}</span>
             <h4>{item.title}</h4>
             <p>{item.desc}</p>

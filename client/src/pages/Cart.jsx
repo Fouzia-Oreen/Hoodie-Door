@@ -14,20 +14,19 @@ const Cart = () => {
     if (products.length > 0) {     
       const tempData = [];
       for (const items in cartItems) {
-        for (const item in cartItems[items]) {         
-            if (cartItems[items][item] > 0) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
               tempData.push({
-                _id : items,
-                size: item,
-                color: item,
-                quantity: cartItems[items][item] 
-              })
-            }          
+              _id : items,
+              size: item,
+              quantity: cartItems[items][item] 
+            })
+          }
         }       
-      } 
+      }
       setCartData(tempData);
     }
-  },[cartItems,products]);
+  },[cartItems, products]);
 
   const handleCheckout = () => {
     if (cartData.length > 0) {

@@ -133,11 +133,12 @@ const Collection = () => {
             <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} /> ))
           }
           </div>
+          
           {/* <div >
         {
             visibleProducts < products.length && (<button className="btn" onClick={loadingMoreProducts}>Load More</button>)
         }
-      </div> */}
+          </div> */}
         </div>
     </div>
   )

@@ -60,7 +60,8 @@ const ShopContextProvider = (props) => {
                 console.log(error)
                }             
             }       
-        } return totalCount
+        } 
+        return totalCount
     }; 
     const updateQuantity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems);
@@ -127,7 +128,7 @@ const ShopContextProvider = (props) => {
     }
     useEffect(() => {
         getProductsData()
-    },[])
+    },[]);
 
     useEffect(() => {
     if (!token && localStorage.getItem('token')) {
@@ -147,6 +148,7 @@ const ShopContextProvider = (props) => {
         showSearch, 
         setShowSearch,
         cartItems,
+        setCartItems,
         addToCart,
         getCartCount,
         updateQuantity,

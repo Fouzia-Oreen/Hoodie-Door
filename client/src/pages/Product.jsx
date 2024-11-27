@@ -1,3 +1,4 @@
+ 
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { Dot } from 'lucide-react';
@@ -10,14 +11,12 @@ import { ShopContext } from "../context/ShopContext";
 
 const Product = () => {
   const { productId } = useParams()
-  const { products, currency, addToCart, } = useContext(ShopContext);
+  const { products, currency, addToCart} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
-  const [colors, setColors] = useState('');
+  const [color, setColor] = useState('');
  
-   
-  
   const filterProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
@@ -31,11 +30,16 @@ const Product = () => {
     filterProductData()
   }, [productId])
   
+  // const  addToCart = () => {
+  //   navigate("/cart")
+  // }
+
+
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       {/* product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row section_container">
-      {/* Product Image */}
+      {/* product - image */}
       <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
         <div className="flex sm:flex-col sm:overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
           {
@@ -49,7 +53,7 @@ const Product = () => {
             ))
           }
         </div>
-        <div className="w-[70%] sm:w-[80%] cursor-pointer">
+        <div className="w-full sm:w-[80%] cursor-pointer">
           <img src={image} alt="image" className="w-full h-auto p-2 border-[1px] border-text-light border-opacity-30"/>
         </div>
       </div>
@@ -57,15 +61,19 @@ const Product = () => {
       <div className="flex-1">
       <div className=' flex items-center justify-between'>
         <div>
-        <h1 className="font-medium text-2xl mt-2 text-text-dark">{productData.name}</h1>
-        <p className='mt-5 text-text-light md:w-4/5'>{productData.description}</p>
+        <h1 className="font-medium text-2xl mt-2 text-text-dark">
+          {productData.name}
+        </h1>
+        <p className='mt-5 text-text-light md:w-4/5'>
+          {productData.description}
+        </p>
         </div>
         <div className='bg-accent px-2 text-white'>
             {productData.onsale ? <p>OnSale</p> : ""}
         </div>
       
       </div>
-
+        {/* product - rating */}
         {/* re rendered */}
         <div className="flex items-center gap-1 mt-2">
           <img src={assets.star_icon} alt="" className="size-3"/>
@@ -73,18 +81,17 @@ const Product = () => {
           <img src={assets.star_icon} alt="" className="size-3"/>
           <img src={assets.star_icon} alt="" className="size-3"/>
           <img src={assets.star_dull_icon} alt="" className="size-3"/>
-          <p className='pl-2'>({ productData.rating}) </p>
+          <p className='pl-2'>({productData.rating}) </p>
         </div>
        
-         
-
-
-        {/* price */}
+        {/* product - price */}
         <div className='flex items-baseline gap-4 mt-5'>
         <p className=' text-3xl font-medium text-text-dark'>{currency}{productData.price}</p>
-        <p className='text-text-light'><del>{currency}{productData.oldPrice}</del></p>
+        <p className='text-text-light'>
+          <del>{currency}{productData.oldPrice}</del>
+        </p>
         </div>
-
+        {/* product - size */}
         <div className="flex flex-col gap-4 my-8">
           <p>Select Size</p>
           <div className="flex gap-2">
@@ -97,22 +104,26 @@ const Product = () => {
             }
           </div>  
         </div>
+        {/* product - color */}
         <div className="flex flex-col gap-4 my-8">
           <p>Select Color</p>
           <div className="flex gap-2">
             {
-              productData.colors.map((item) => (<>
+              productData.colors.map((colorItem, i) => (<>
                 <button 
-                onClick={()=> setColors(item)} key={item}
-                 className={`${colors.includes(item) ? "border-[3px]" : "bg-primary-light"} flex items-center justify-center size-6 mr-2 rounded-full  cursor-pointer border-[1px] border-text-dark`} style={{backgroundColor : item}}>
+                 onClick={()=> setColor(colorItem)} key={i}
+                 className={`${color.includes(colorItem) ? "border-[3px]" : "bg-primary-light"} flex items-center justify-center size-6 mr-2 rounded-full  cursor-pointer border-[1px] border-text-dark`} style={{backgroundColor : colorItem}}>
                 </button>
                </>
               ))
             }
           </div>  
         </div>
-        <button onClick={() => addToCart(productData._id, size)}
+        <button onClick={() => addToCart(productData._id, size)} 
+
         className='btn active:bg-accent'>ADD TO CART</button>
+
+        {/* product - assurance */}
         <hr className='mt-8 sm:w-4/5'/>
         <div className="text-sm mt-5 flex flex-col gap-1">
           <p className='flex'><Dot /> 100% Original product.</p>
@@ -121,6 +132,7 @@ const Product = () => {
         </div>
       </div>
       </div>
+
       {/* Description & review page */}
       <div className="section_container mt-20">
         <div className='flex gap-4'>

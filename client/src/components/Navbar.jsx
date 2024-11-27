@@ -36,7 +36,7 @@ export default function Navbar() {
               <NavLink to={nav.link} key={nav.link} className="flex flex-col items-start gap-[2px]">
               <p className="font-medium text-text-dark">{nav.title}</p>
               <hr className="w-2/4 border-none h-[1.5px] bg-text-dark hidden" />
-            </NavLink>
+              </NavLink>
             ))
           }
         </ul>

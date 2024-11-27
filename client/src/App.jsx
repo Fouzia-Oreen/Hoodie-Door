@@ -15,6 +15,7 @@ import Orders from './pages/Orders'
 import PlaceOrders from './pages/PlaceOrders'
 import Product from './pages/Product'
 import NotFound from './pages/NotFound'
+import VerifyPayment from './pages/VerifyPayment'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
     <Route path='/login' element={<Login />} />
     <Route path='/place-order' element={<PlaceOrders />} />
     <Route path='/orders' element={<Orders />} />
+    <Route path='/veyify' element={<VerifyPayment />} />
     <Route path='*' element={<NotFound />} />
    </Routes>
    <Footer />
